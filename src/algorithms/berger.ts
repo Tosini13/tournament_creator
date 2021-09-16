@@ -20,9 +20,9 @@ const bergerAlgorithmEven = ({ teams }: TBergerAlgorithmProps): TMatch[] => {
   const roundsQty = teams.length - 1;
 
   let iRound = 1;
-  let matches: TMatch[] = [];
-  let homeTeams: TTeam[] = teams.slice(1, teamsQtt / 2);
-  let awayTeams: TTeam[] = teams.slice(teamsQtt / 2, teamsQtt).reverse();
+  const matches: TMatch[] = [];
+  const homeTeams: TTeam[] = teams.slice(1, teamsQtt / 2);
+  const awayTeams: TTeam[] = teams.slice(teamsQtt / 2, teamsQtt).reverse();
   while (iRound <= roundsQty) {
     const roundMatches = awayTeams.map((away, i) => {
       if (i === 0 && !(iRound % 2)) {
@@ -49,9 +49,9 @@ const bergerAlgorithmOdd = ({ teams }: TBergerAlgorithmProps): TMatch[] => {
   const roundsQty = teams.length;
 
   let iRound = 1;
-  let matches: TMatch[] = [];
-  let homeTeams: Array<TTeam | null> = teams.slice(1, (teamsQtt + 1) / 2);
-  let awayTeams: Array<TTeam | null> = [...teams.slice((teamsQtt + 1) / 2, teamsQtt), null].reverse();
+  const matches: TMatch[] = [];
+  let homeTeams: (TTeam | null)[] = teams.slice(1, (teamsQtt + 1) / 2);
+  const awayTeams: (TTeam | null)[] = [...teams.slice((teamsQtt + 1) / 2, teamsQtt), null].reverse();
   while (iRound <= roundsQty) {
     const roundMatches = awayTeams
       .map((away, i) => {
