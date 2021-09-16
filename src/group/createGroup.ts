@@ -1,5 +1,5 @@
 import { bergerAlgorithm } from '../algorithms/berger';
-import { TGroup } from '../models/group';
+import { TCreateGroup, TGroup } from '../models/group';
 import { TMatch } from '../models/match';
 import { TTeam } from '../models/team';
 
@@ -9,20 +9,15 @@ type TCreateGroupProps = {
   rematch?: boolean;
 };
 
-export const createGroup = ({ name, teams, rematch }: TCreateGroupProps): TGroup => {
-  const groupTeams: TGroup['teams'] = new Map<number, TTeam>();
-
-  teams.forEach((team, place) => groupTeams.set(place, team));
-
+export const createGroup = ({ name, teams, rematch }: TCreateGroupProps): TCreateGroup => {
   const groupMatches = createGroupMatches({
     teams,
     rematch,
   });
 
   return {
-    id: 'GroupA', //some hash!
-    name: 'Group A',
-    teams: groupTeams,
+    name,
+    teams,
     matches: groupMatches,
   };
 };
@@ -70,7 +65,6 @@ type TInitMatchProps = {
 };
 export const initGroupMatch = ({ home, away, round }: TInitMatchProps): TGroup['matches'][number] => {
   return {
-    id: 'MATCH1',
     homeTeam: home,
     awayTeam: away,
     roundNumber: round,

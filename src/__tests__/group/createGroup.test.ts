@@ -3,20 +3,18 @@ import { TMatch } from '../../models/match';
 import { TTeam } from '../../models/team';
 
 const teams: TTeam[] = [
-  { id: 'fcb', name: 'F.C. Barcelona' }, //1
-  { id: 'rmcf', name: 'Real Madrid C.F.' }, //2
-  { id: 'at', name: 'Atletico de Madrid' }, //3
-  { id: 'sfc', name: 'Sevilla F.C.' }, //4
-  { id: 'vfc', name: 'Valencia F.C.' }, //5
-  { id: 'ab', name: 'Athletic Bilbao' }, //6
-
-  { id: 'cv', name: 'Celta Vigo' }, //7
-  { id: 'rb', name: 'real Betis' }, //8
+  { name: 'F.C. Barcelona' }, //1
+  { name: 'Real Madrid C.F.' }, //2
+  { name: 'Atletico de Madrid' }, //3
+  { name: 'Sevilla F.C.' }, //4
+  { name: 'Valencia F.C.' }, //5
+  { name: 'Athletic Bilbao' }, //6
+  { name: 'Celta Vigo' }, //7
+  { name: 'real Betis' }, //8
 ];
 
 test('Init Match', () => {
   const expected: TMatch = {
-    id: 'MATCH1',
     homeTeam: teams[0],
     awayTeam: teams[1],
     roundNumber: 1,
@@ -37,19 +35,17 @@ test('Create Group Matches for more than 6 teams with rematches', () => {
   const expected: TMatch[] = [
     {
       // 1 ROUND
-      id: 'MATCH1',
+
       homeTeam: sixTeams[0],
       awayTeam: sixTeams[5],
       roundNumber: 1,
     },
     {
-      id: 'MATCH1',
       homeTeam: sixTeams[1],
       awayTeam: sixTeams[4],
       roundNumber: 1,
     },
     {
-      id: 'MATCH1',
       homeTeam: sixTeams[2],
       awayTeam: sixTeams[3],
       roundNumber: 1,
@@ -57,19 +53,17 @@ test('Create Group Matches for more than 6 teams with rematches', () => {
 
     {
       // 2 ROUND
-      id: 'MATCH1',
+
       homeTeam: sixTeams[4],
       awayTeam: sixTeams[0],
       roundNumber: 2,
     },
     {
-      id: 'MATCH1',
       homeTeam: sixTeams[5],
       awayTeam: sixTeams[3],
       roundNumber: 2,
     },
     {
-      id: 'MATCH1',
       homeTeam: sixTeams[1],
       awayTeam: sixTeams[2],
       roundNumber: 2,
@@ -77,19 +71,17 @@ test('Create Group Matches for more than 6 teams with rematches', () => {
 
     {
       // 3 ROUND
-      id: 'MATCH1',
+
       homeTeam: sixTeams[0],
       awayTeam: sixTeams[3],
       roundNumber: 3,
     },
     {
-      id: 'MATCH1',
       homeTeam: sixTeams[4],
       awayTeam: sixTeams[2],
       roundNumber: 3,
     },
     {
-      id: 'MATCH1',
       homeTeam: sixTeams[5],
       awayTeam: sixTeams[1],
       roundNumber: 3,
@@ -97,19 +89,17 @@ test('Create Group Matches for more than 6 teams with rematches', () => {
 
     {
       // 4 ROUND
-      id: 'MATCH1',
+
       homeTeam: sixTeams[2],
       awayTeam: sixTeams[0],
       roundNumber: 4,
     },
     {
-      id: 'MATCH1',
       homeTeam: sixTeams[3],
       awayTeam: sixTeams[1],
       roundNumber: 4,
     },
     {
-      id: 'MATCH1',
       homeTeam: sixTeams[4],
       awayTeam: sixTeams[5],
       roundNumber: 4,
@@ -117,19 +107,17 @@ test('Create Group Matches for more than 6 teams with rematches', () => {
 
     {
       // 5 ROUND
-      id: 'MATCH1',
+
       homeTeam: sixTeams[0],
       awayTeam: sixTeams[1],
       roundNumber: 5,
     },
     {
-      id: 'MATCH1',
       homeTeam: sixTeams[2],
       awayTeam: sixTeams[5],
       roundNumber: 5,
     },
     {
-      id: 'MATCH1',
       homeTeam: sixTeams[3],
       awayTeam: sixTeams[4],
       roundNumber: 5,
@@ -153,13 +141,11 @@ test('Create Group Matches for more than 5 teams', () => {
   const fiveTeams = teams.slice(0, 5);
   const expected: TMatch[] = [
     {
-      id: 'MATCH1',
       homeTeam: fiveTeams[1],
       awayTeam: fiveTeams[4],
       roundNumber: 1,
     },
     {
-      id: 'MATCH1',
       homeTeam: fiveTeams[2],
       awayTeam: fiveTeams[3],
       roundNumber: 1,
@@ -167,13 +153,12 @@ test('Create Group Matches for more than 5 teams', () => {
 
     {
       // 2 ROUND
-      id: 'MATCH1',
+
       homeTeam: fiveTeams[4],
       awayTeam: fiveTeams[0],
       roundNumber: 2,
     },
     {
-      id: 'MATCH1',
       homeTeam: fiveTeams[1],
       awayTeam: fiveTeams[2],
       roundNumber: 2,
@@ -181,13 +166,12 @@ test('Create Group Matches for more than 5 teams', () => {
 
     {
       // 3 ROUND
-      id: 'MATCH1',
+
       homeTeam: fiveTeams[0],
       awayTeam: fiveTeams[3],
       roundNumber: 3,
     },
     {
-      id: 'MATCH1',
       homeTeam: fiveTeams[4],
       awayTeam: fiveTeams[2],
       roundNumber: 3,
@@ -195,13 +179,12 @@ test('Create Group Matches for more than 5 teams', () => {
 
     {
       // 4 ROUND
-      id: 'MATCH1',
+
       homeTeam: fiveTeams[2],
       awayTeam: fiveTeams[0],
       roundNumber: 4,
     },
     {
-      id: 'MATCH1',
       homeTeam: fiveTeams[3],
       awayTeam: fiveTeams[1],
       roundNumber: 4,
@@ -209,13 +192,12 @@ test('Create Group Matches for more than 5 teams', () => {
 
     {
       // 5 ROUND
-      id: 'MATCH1',
+
       homeTeam: fiveTeams[0],
       awayTeam: fiveTeams[1],
       roundNumber: 5,
     },
     {
-      id: 'MATCH1',
       homeTeam: fiveTeams[3],
       awayTeam: fiveTeams[4],
       roundNumber: 5,
@@ -240,19 +222,16 @@ test('Create Group Matches for more than 5 teams', () => {
 test('Create Group Matches for 3 teams', () => {
   const expected: TMatch[] = [
     {
-      id: 'MATCH1',
       homeTeam: teams[0],
       awayTeam: teams[1],
       roundNumber: 1,
     },
     {
-      id: 'MATCH1',
       homeTeam: teams[1],
       awayTeam: teams[2],
       roundNumber: 2,
     },
     {
-      id: 'MATCH1',
       homeTeam: teams[2],
       awayTeam: teams[0],
       roundNumber: 3,
@@ -269,37 +248,31 @@ test('Create Group Matches for 3 teams', () => {
 test('Create Group Matches for 3 teams with rematches', () => {
   const expected: TMatch[] = [
     {
-      id: 'MATCH1',
       homeTeam: teams[0],
       awayTeam: teams[1],
       roundNumber: 1,
     },
     {
-      id: 'MATCH1',
       homeTeam: teams[1],
       awayTeam: teams[2],
       roundNumber: 2,
     },
     {
-      id: 'MATCH1',
       homeTeam: teams[2],
       awayTeam: teams[0],
       roundNumber: 3,
     },
     {
-      id: 'MATCH1',
       homeTeam: teams[1],
       awayTeam: teams[0],
       roundNumber: 4,
     },
     {
-      id: 'MATCH1',
       homeTeam: teams[2],
       awayTeam: teams[1],
       roundNumber: 5,
     },
     {
-      id: 'MATCH1',
       homeTeam: teams[0],
       awayTeam: teams[2],
       roundNumber: 6,
@@ -318,7 +291,6 @@ test('Create Group Matches for 3 teams with rematches', () => {
 test('Create Group Matches for 2 teams', () => {
   const expected: TMatch[] = [
     {
-      id: 'MATCH1',
       homeTeam: teams[0],
       awayTeam: teams[1],
       roundNumber: 1,
@@ -334,13 +306,11 @@ test('Create Group Matches for 2 teams', () => {
 test('Create Group Matches for 2 teams with rematch', () => {
   const expected: TMatch[] = [
     {
-      id: 'MATCH1',
       homeTeam: teams[0],
       awayTeam: teams[1],
       roundNumber: 1,
     },
     {
-      id: 'MATCH1',
       homeTeam: teams[1],
       awayTeam: teams[0],
       roundNumber: 2,
