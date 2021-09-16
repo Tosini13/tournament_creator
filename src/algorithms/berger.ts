@@ -50,7 +50,7 @@ const bergerAlgorithmOdd = ({ teams }: TBergerAlgorithmProps): TMatch[] => {
 
   let iRound = 1;
   const matches: TMatch[] = [];
-  let homeTeams: (TTeam | null)[] = teams.slice(1, (teamsQtt + 1) / 2);
+  const homeTeams: (TTeam | null)[] = teams.slice(1, (teamsQtt + 1) / 2);
   const awayTeams: (TTeam | null)[] = [...teams.slice((teamsQtt + 1) / 2, teamsQtt), null].reverse();
   while (iRound <= roundsQty) {
     const roundMatches = awayTeams
