@@ -32,7 +32,7 @@ test('Init Match', () => {
 
 // MORE THAN 3 TEAMS
 
-test('Create Group Matches for more than 6 teams', () => {
+test('Create Group Matches for more than 6 teams with rematches', () => {
   const sixTeams = teams.slice(0, 6);
   const expected: TMatch[] = [
     {
@@ -135,12 +135,18 @@ test('Create Group Matches for more than 6 teams', () => {
       roundNumber: 5,
     },
   ];
+  const expectedRematches = expected.map((match, i) => ({
+    ...match,
+    homeTeam: match.awayTeam,
+    awayTeam: match.homeTeam,
+    roundNumber: expected.length + i + 1,
+  }));
   expect(
     createGroupMatches({
       teams: sixTeams,
-      rematch: false,
+      rematch: true,
     }),
-  ).toEqual(expected);
+  ).toEqual([...expected, ...expectedRematches]);
 });
 
 test('Create Group Matches for more than 5 teams', () => {
@@ -215,12 +221,18 @@ test('Create Group Matches for more than 5 teams', () => {
       roundNumber: 5,
     },
   ];
+  const expectedRematches = expected.map((match, i) => ({
+    ...match,
+    homeTeam: match.awayTeam,
+    awayTeam: match.homeTeam,
+    roundNumber: expected.length + i + 1,
+  }));
   expect(
     createGroupMatches({
       teams: fiveTeams,
-      rematch: false,
+      rematch: true,
     }),
-  ).toEqual(expected);
+  ).toEqual([...expected, ...expectedRematches]);
 });
 
 // 3 TEAMS
