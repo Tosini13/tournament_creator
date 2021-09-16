@@ -4,6 +4,7 @@ import { TTeam } from './team';
 
 export type TGroup = {
   id: string;
+  name: string;
   teams: Map<number, TTeam>;
   matches: TMatch[];
   promotionGames?: Map<number, TPromotionGame>;

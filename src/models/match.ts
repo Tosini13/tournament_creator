@@ -3,8 +3,10 @@ import { TTeam } from './team';
 
 export type TMatch = {
   id: string;
-  homeTeam: TTeam;
-  awayTeam: TTeam;
-  score: TScore;
+  roundNumber?: number;
+  roundName?: string;
+  homeTeam?: TTeam;
+  awayTeam?: TTeam;
+  score?: TScore;
   dateTime?: Date;
 };
