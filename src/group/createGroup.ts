@@ -9,7 +9,7 @@ type TCreateGroupProps = {
   rematch?: boolean;
 };
 
-export const createGroup = ({ name, teams, rematch }: TCreateGroupProps): TCreateGroup => {
+const createGroup = ({ name, teams, rematch }: TCreateGroupProps): TCreateGroup => {
   const groupMatches = createGroupMatches({
     teams,
     rematch,
@@ -21,6 +21,7 @@ export const createGroup = ({ name, teams, rematch }: TCreateGroupProps): TCreat
     matches: groupMatches,
   };
 };
+export default createGroup;
 
 // create matches in group:
 // can be with rematches
@@ -63,6 +64,7 @@ type TInitMatchProps = {
   away: TTeam;
   round: number;
 };
+
 export const initGroupMatch = ({ home, away, round }: TInitMatchProps): TGroup['matches'][number] => {
   return {
     homeTeam: home,
