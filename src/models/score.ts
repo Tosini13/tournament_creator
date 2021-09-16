@@ -1,4 +1,4 @@
-export type TScore = {
-  home: number;
-  away: number;
+export type TScore<T = number> = {
+  home: T;
+  away: T;
 };

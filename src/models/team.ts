@@ -1,3 +1,3 @@
-export type TTeam = {
+export type TTeam<T = {}> = {
   name: string;
-};
+} & T;

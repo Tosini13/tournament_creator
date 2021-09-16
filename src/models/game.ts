@@ -1,6 +1,6 @@
 import { TMatch } from './match';
 
-export type TGame = {
+export type TGame<T = {}> = {
   match: TMatch;
   rematch?: TMatch;
-};
+} & T;
