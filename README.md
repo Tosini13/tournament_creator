@@ -4,7 +4,7 @@
 
 *Models of each seperate structures (structures can be connected only by ID i.e. {teamId: string}) are in the models folder and models of connected structures (can be connected by type i.e. { team: TTeam_Structure} and are part of the bigger structure) are in models/structures folder.*
 
-### Examples of nomenclature:
+### Examples of models nomenclature:
 ```
 Seperate: TTeam
 Connected: TTeam_Structure
