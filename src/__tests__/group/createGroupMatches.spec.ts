@@ -1,17 +1,6 @@
 import { initGroupMatch, createGroupMatches } from '../../group/createGroup';
 import { TMatch } from '../../models/match';
-import { TTeam } from '../../models/team';
-
-const teams: TTeam[] = [
-  { name: 'F.C. Barcelona' }, //1
-  { name: 'Real Madrid C.F.' }, //2
-  { name: 'Atletico de Madrid' }, //3
-  { name: 'Sevilla F.C.' }, //4
-  { name: 'Valencia F.C.' }, //5
-  { name: 'Athletic Bilbao' }, //6
-  { name: 'Celta Vigo' }, //7
-  { name: 'real Betis' }, //8
-];
+import { teams } from '../mockData/teams';
 
 test('Init Match', () => {
   const expected: TMatch = {
@@ -27,6 +16,7 @@ test('Init Match', () => {
     }),
   ).toEqual(expected);
 });
+
 
 // MORE THAN 3 TEAMS
 
@@ -127,8 +117,9 @@ test('Create Group Matches for more than 6 teams with rematches', () => {
     ...match,
     homeTeam: match.awayTeam,
     awayTeam: match.homeTeam,
-    roundNumber: expected.length + i + 1,
+    roundNumber: match.roundNumber && match.roundNumber + 5,
   }));
+
   expect(
     createGroupMatches({
       teams: sixTeams,
@@ -207,7 +198,7 @@ test('Create Group Matches for more than 5 teams', () => {
     ...match,
     homeTeam: match.awayTeam,
     awayTeam: match.homeTeam,
-    roundNumber: expected.length + i + 1,
+    roundNumber: match.roundNumber && match.roundNumber + 5,
   }));
   expect(
     createGroupMatches({

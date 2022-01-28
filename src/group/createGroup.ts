@@ -29,12 +29,13 @@ export default createGroup;
 type TCreateGroupMatchesProps = {
   teams: TTeam[];
   rematch?: boolean;
+  revertedRematch?: boolean;
 };
-export const createGroupMatches = ({ teams, rematch }: TCreateGroupMatchesProps): TMatch[] => {
+export const createGroupMatches = ({ teams, rematch, revertedRematch }: TCreateGroupMatchesProps): TMatch[] => {
   if (teams.length > 3) {
-    const matches = bergerAlgorithm({ teams });
+    const { matches, rounds } = bergerAlgorithm({ teams });
     if (rematch) {
-      return [...matches, ...createGroupReMatches({ matches })];
+      return [...matches, ...createGroupReMatches({ matches: matches, rounds })];
     }
     return matches;
   } else if (teams.length === 3) {
@@ -45,13 +46,13 @@ export const createGroupMatches = ({ teams, rematch }: TCreateGroupMatchesProps)
     ];
 
     if (rematch) {
-      return [...matches, ...createGroupReMatches({ matches })];
+      return [...matches, ...createGroupReMatches({ matches: matches, rounds: 3 })];
     }
     return matches;
   } else if (teams.length === 2) {
     const matches = [initGroupMatch({ home: teams[0], away: teams[1], round: 1 })];
     if (rematch) {
-      return [...matches, ...createGroupReMatches({ matches })];
+      return [...matches, ...createGroupReMatches({ matches: matches, rounds: 1 })];
     }
     return matches;
   } else {
@@ -75,11 +76,14 @@ export const initGroupMatch = ({ home, away, round }: TInitMatchProps): TGroup['
 
 type TCreateGroupReMatchesProps = {
   matches: TMatch[];
+  rounds: number;
 };
-const createGroupReMatches = ({ matches }: TCreateGroupReMatchesProps): TMatch[] =>
-  matches.map((match, i) => ({
+
+const createGroupReMatches = ({ matches, rounds }: TCreateGroupReMatchesProps): TMatch[] => {
+  return matches.map((match, i) => ({
     ...match,
     homeTeam: match.awayTeam,
     awayTeam: match.homeTeam,
-    roundNumber: matches.length + i + 1,
+    roundNumber: match?.roundNumber && match?.roundNumber + rounds,
   }));
+}

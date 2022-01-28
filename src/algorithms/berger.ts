@@ -6,7 +6,12 @@ type TBergerAlgorithmProps = {
   teams: TTeam[];
 };
 
-export const bergerAlgorithm = ({ teams }: TBergerAlgorithmProps): TMatch[] => {
+type TBergerAlgorithmReturn = {
+  matches: TMatch[];
+  rounds: number;
+};
+
+export const bergerAlgorithm = ({ teams }: TBergerAlgorithmProps): TBergerAlgorithmReturn => {
   if (!(teams.length % 2)) {
     return bergerAlgorithmEven({ teams });
   } else {
@@ -14,7 +19,7 @@ export const bergerAlgorithm = ({ teams }: TBergerAlgorithmProps): TMatch[] => {
   }
 };
 
-const bergerAlgorithmEven = ({ teams }: TBergerAlgorithmProps): TMatch[] => {
+const bergerAlgorithmEven = ({ teams }: TBergerAlgorithmProps): TBergerAlgorithmReturn => {
   const teamsQtt = teams.length;
   const fixedTeam = teams[0];
   const roundsQty = teams.length - 1;
@@ -40,10 +45,10 @@ const bergerAlgorithmEven = ({ teams }: TBergerAlgorithmProps): TMatch[] => {
     if (newAway) awayTeams.push(newAway);
     iRound++;
   }
-  return matches;
+  return { matches, rounds: roundsQty };
 };
 
-const bergerAlgorithmOdd = ({ teams }: TBergerAlgorithmProps): TMatch[] => {
+const bergerAlgorithmOdd = ({ teams }: TBergerAlgorithmProps): TBergerAlgorithmReturn => {
   const teamsQtt = teams.length;
   const fixedTeam = teams[0];
   const roundsQty = teams.length;
@@ -75,5 +80,5 @@ const bergerAlgorithmOdd = ({ teams }: TBergerAlgorithmProps): TMatch[] => {
     if (newAway !== undefined) awayTeams.push(newAway);
     iRound++;
   }
-  return matches;
+  return { matches, rounds: roundsQty };
 };

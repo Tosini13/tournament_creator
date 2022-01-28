@@ -11,6 +11,7 @@ export type TGroup<T = {}> = {
   promotionGroups?: TPromotionGroup[];
 } & T;
 
+
 export type TCreateGroup = Omit<TGroup, 'id'>;
 
 type TPromotionGame = {
@@ -26,4 +27,17 @@ type TPromotionGroup = {
 enum ESite {
   'HOME',
   'AWAY',
+}
+
+export type TGroupTable = TTableRow[];
+
+export type TTableRow = {
+  team: TTeam;
+  wonMatches: number;
+  lostMatches: number;
+  drawnMatches: number;
+  goalsScored: number;
+  goalsLost: number;
+  promotedToGame?: TPromotionGame;
+  promotedToGroup?: TPromotionGroup;
 }
