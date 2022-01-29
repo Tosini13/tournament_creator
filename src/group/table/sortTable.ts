@@ -47,31 +47,31 @@ const sortByPoints = (next?: TSortTable): TSortTable => (rowA, rowB) => {
 
 const sortByDirectScore = (matches: TMatchWithScoreAndTeams[]) => (options?: TSortOptions): TSortTable => (rowA, rowB) => {
     const teamsMatches = matches.filter(match =>
-        (match.homeTeam.name === rowA.team.name || match.homeTeam.name === rowB.team.name) &&
-        (match.awayTeam.name === rowA.team.name || match.awayTeam.name === rowB.team.name)); // TODO: check ID
+        (match.homeTeam === rowA.team || match.homeTeam === rowB.team) &&
+        (match.awayTeam === rowA.team || match.awayTeam === rowB.team)); // TODO: check ID
 
     const goals = teamsMatches.reduce((acc, match) => ({
-        [match.homeTeam.name]: {
-            homeGoals: acc[match.homeTeam.name].homeGoals + match.score.home,
-            awayGoals: acc[match.homeTeam.name].awayGoals
+        [match.homeTeam]: {
+            homeGoals: acc[match.homeTeam].homeGoals + match.score.home,
+            awayGoals: acc[match.homeTeam].awayGoals
         },
-        [match.awayTeam.name]: {
-            homeGoals: acc[match.awayTeam.name].homeGoals,
-            awayGoals: acc[match.awayTeam.name].awayGoals + match.score.away
+        [match.awayTeam]: {
+            homeGoals: acc[match.awayTeam].homeGoals,
+            awayGoals: acc[match.awayTeam].awayGoals + match.score.away
         }
     }), {
-        [rowA.team.name]: {
+        [rowA.team]: {
             homeGoals: 0,
             awayGoals: 0
         }, //TODO: should be ID
-        [rowB.team.name]: {
+        [rowB.team]: {
             homeGoals: 0,
             awayGoals: 0
         }
     });
 
-    const rowAGoals = goals[rowA.team.name].homeGoals + goals[rowA.team.name].awayGoals;
-    const rowBGoals = goals[rowB.team.name].homeGoals + goals[rowB.team.name].awayGoals;
+    const rowAGoals = goals[rowA.team].homeGoals + goals[rowA.team].awayGoals;
+    const rowBGoals = goals[rowB.team].homeGoals + goals[rowB.team].awayGoals;
 
     if (rowAGoals > rowBGoals) {
         return -1;
@@ -79,10 +79,10 @@ const sortByDirectScore = (matches: TMatchWithScoreAndTeams[]) => (options?: TSo
         return 1;
     } else {
         if (!options?.countGoalsAway) return 0;
-        if (goals[rowA.team.name].awayGoals > goals[rowB.team.name].awayGoals) {
+        if (goals[rowA.team].awayGoals > goals[rowB.team].awayGoals) {
             return -1;
         }
-        else if (goals[rowA.team.name].awayGoals < goals[rowB.team.name].awayGoals) {
+        else if (goals[rowA.team].awayGoals < goals[rowB.team].awayGoals) {
             return 1;
         }
         return 0;

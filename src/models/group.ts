@@ -1,12 +1,10 @@
 import { Id } from './db';
-import { TGame } from './game';
 import { TMatch } from './match';
-import { TTeam } from './team';
 
 export type TGroup<T = {}> = {
   id: Id;
   name: string;
-  teams: TTeam[];
+  teams: Id[];
   matches: TMatch[];
   promotionGames?: TPromotionGame[];
   promotionGroups?: TPromotionGroup[];
@@ -33,7 +31,7 @@ enum ESite {
 export type TGroupTable = TTableRow[];
 
 export type TTableRow = {
-  team: TTeam;
+  team: Id;
   points: number;
   wonMatches: number;
   lostMatches: number;

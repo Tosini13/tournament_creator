@@ -1,6 +1,7 @@
 import { TTableRow, TTeam } from "../..";
 import { ERowProp, TCountProp, TMapGroup } from "./types";
 import * as R from 'ramda';
+import { Id } from "../../models/db";
 
 export const initRow: Omit<TTableRow, 'place' | 'team'> = {
     wonMatches: 0,
@@ -11,7 +12,7 @@ export const initRow: Omit<TTableRow, 'place' | 'team'> = {
     points: 0,
 }
 
-const addToProp = (map: TMapGroup) => (prop: ERowProp) => (qtt: number = 1) => (team: TTeam): TMapGroup => {
+const addToProp = (map: TMapGroup) => (prop: ERowProp) => (qtt: number = 1) => (team: Id): TMapGroup => {
     const row = map.get(team);
     if (row) {
         map.set(team, { ...row, [prop]: row[prop] + qtt })

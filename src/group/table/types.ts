@@ -1,12 +1,13 @@
-import { TMatch, TScore, TTableRow, TTeam } from "../..";
+import { TMatch, TScore, TTableRow } from "../..";
+import { Id } from "../../models/db";
 
 export type TMapArg = Omit<TTableRow, 'team' | 'place' | 'promotedToGame' | 'promotedToGroup'>;
-export type TMapGroup = Map<TTeam, TMapArg>;
+export type TMapGroup = Map<Id, TMapArg>;
 
 export type TMatchWithScoreAndTeams = Omit<TMatch, 'score' | 'homeTeam' | 'awayTeam'> & {
     score: TScore;
-    homeTeam: TTeam;
-    awayTeam: TTeam;
+    homeTeam: Id;
+    awayTeam: Id;
 }
 
 export enum ERowProp {  // TODO: typeof Object.keys

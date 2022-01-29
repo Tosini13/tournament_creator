@@ -2,6 +2,7 @@ import { TGroup, TGroupTable, TMatch, TTeam } from "../..";
 import { TMapGroup, TMapArg, TMatchWithScoreAndTeams } from "./types";
 import { countTable, initRow } from "./countTable";
 import { sortTable, TSortOptions } from "./sortTable";
+import { Id } from "../../models/db";
 
 export function withScoreAndTeams(value: TMatch): value is TMatchWithScoreAndTeams {
     return (
@@ -22,7 +23,7 @@ export const getGroupTable = (group: TGroup, options?: TSortOptions): TGroupTabl
     const matchesWithScoreAndTeams = group.matches.filter(withScoreAndTeams);
 
     const countedTable: TMapGroup = matchesWithScoreAndTeams
-        .reduce<Map<TTeam, TMapArg>>((map, match) => countTable(match)(map), new Map<TTeam, TMapArg>(
+        .reduce<TMapGroup>((map, match) => countTable(match)(map), new Map<Id, TMapArg>(
             group.teams.map(team => [team, initRow])
         ));
 

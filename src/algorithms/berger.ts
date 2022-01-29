@@ -1,9 +1,9 @@
 import { initGroupMatch } from '../group/createGroup';
+import { Id } from '../models/db';
 import { TMatch } from '../models/match';
-import { TTeam } from '../models/team';
 
 type TBergerAlgorithmProps = {
-  teams: TTeam[];
+  teams: Id[];
 };
 
 type TBergerAlgorithmReturn = {
@@ -26,8 +26,8 @@ const bergerAlgorithmEven = ({ teams }: TBergerAlgorithmProps): TBergerAlgorithm
 
   let iRound = 1;
   const matches: TMatch[] = [];
-  const homeTeams: TTeam[] = teams.slice(1, teamsQtt / 2);
-  const awayTeams: TTeam[] = teams.slice(teamsQtt / 2, teamsQtt).reverse();
+  const homeTeams: Id[] = teams.slice(1, teamsQtt / 2);
+  const awayTeams: Id[] = teams.slice(teamsQtt / 2, teamsQtt).reverse();
   while (iRound <= roundsQty) {
     const roundMatches = awayTeams.map((away, i) => {
       if (i === 0 && !(iRound % 2)) {
@@ -55,8 +55,8 @@ const bergerAlgorithmOdd = ({ teams }: TBergerAlgorithmProps): TBergerAlgorithmR
 
   let iRound = 1;
   const matches: TMatch[] = [];
-  const homeTeams: (TTeam | null)[] = teams.slice(1, (teamsQtt + 1) / 2);
-  const awayTeams: (TTeam | null)[] = [...teams.slice((teamsQtt + 1) / 2, teamsQtt), null].reverse();
+  const homeTeams: (Id | null)[] = teams.slice(1, (teamsQtt + 1) / 2);
+  const awayTeams: (Id | null)[] = [...teams.slice((teamsQtt + 1) / 2, teamsQtt), null].reverse();
   while (iRound <= roundsQty) {
     const roundMatches = awayTeams
       .map((away, i) => {

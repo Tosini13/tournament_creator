@@ -7,7 +7,7 @@ describe('group creation', () => {
     it('Create Group', () => {
         const groupA = createGroup({
             name: 'Group A',
-            teams: teams.slice(0, 3),
+            teams: teams.slice(0, 3).map(team => team.id),
         })
 
         groupA.matches[0].score = {

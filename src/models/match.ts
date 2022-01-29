@@ -1,11 +1,11 @@
+import { Id } from './db';
 import { TScore } from './score';
-import { TTeam } from './team';
 
 export type TMatch<T = {}> = {
   roundNumber?: number;
   roundName?: string;
-  homeTeam?: TTeam;
-  awayTeam?: TTeam;
+  homeTeam?: Id;
+  awayTeam?: Id;
   score?: TScore;
   dateTime?: Date;
 } & T;

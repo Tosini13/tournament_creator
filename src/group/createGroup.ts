@@ -1,11 +1,12 @@
 import { bergerAlgorithm } from '../algorithms/berger';
+import { Id } from '../models/db';
 import { TCreateGroup, TGroup } from '../models/group';
 import { TMatch } from '../models/match';
 import { TTeam } from '../models/team';
 
 type TCreateGroupProps = {
   name: string;
-  teams: TTeam[];
+  teams: Id[];
   rematch?: boolean;
 };
 
@@ -27,7 +28,7 @@ export default createGroup;
 // can be with rematches
 
 type TCreateGroupMatchesProps = {
-  teams: TTeam[];
+  teams: Id[];
   rematch?: boolean;
   revertedRematch?: boolean;
 };
@@ -61,8 +62,8 @@ export const createGroupMatches = ({ teams, rematch, revertedRematch }: TCreateG
 };
 
 type TInitMatchProps = {
-  home: TTeam;
-  away: TTeam;
+  home: Id;
+  away: Id;
   round: number;
 };
 
