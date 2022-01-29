@@ -11,20 +11,21 @@ describe('group creation', () => {
         })
 
         groupA.matches[0].score = {
-            home: 2,
+            home: 0,
             away: 1
         };
         groupA.matches[1].score = {
-            home: 1,
+            home: 0,
             away: 1
         };
         groupA.matches[2].score = {
-            home: 0,
-            away: 3
+            home: 1,
+            away: 2
         };
 
         console.log('groupA', groupA.matches);
-        getGroupTable({ ...groupA, id: 'groupA' });
+        const table = getGroupTable({ ...groupA, id: 'groupA' }, { countGoalsAway: true });
+        console.log('table', table);
     });
 
 })

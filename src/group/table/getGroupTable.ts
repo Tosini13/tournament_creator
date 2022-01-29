@@ -1,12 +1,7 @@
 import { TGroup, TGroupTable, TMatch, TTeam } from "../..";
-import * as R from 'ramda';
 import { TMapGroup, TMapArg, TMatchWithScoreAndTeams } from "./types";
-import { countTable, initRow } from "./utils";
-
-
-
-// TODO: Remove, because it's temp
-const trace = R.tap(console.log.bind(console));
+import { countTable, initRow } from "./countTable";
+import { sortTable, TSortOptions } from "./sortTable";
 
 export function withScoreAndTeams(value: TMatch): value is TMatchWithScoreAndTeams {
     return (
@@ -21,17 +16,16 @@ const convertMapToArray = (map: TMapGroup): TGroupTable => Array.from(map, ([key
 }));
 
 
-export const getGroupTable = (group: TGroup): TGroupTable => {
+export const getGroupTable = (group: TGroup, options?: TSortOptions): TGroupTable => {
 
-    const countedTable: TMapGroup = group.matches
-        .filter(withScoreAndTeams)
+    // TODO: Functional programming - remove proxy variabless
+    const matchesWithScoreAndTeams = group.matches.filter(withScoreAndTeams);
+
+    const countedTable: TMapGroup = matchesWithScoreAndTeams
         .reduce<Map<TTeam, TMapArg>>((map, match) => countTable(match)(map), new Map<TTeam, TMapArg>(
             group.teams.map(team => [team, initRow])
         ));
 
-    const table: TGroupTable = convertMapToArray(countedTable); //TODO: sort it!
 
-    console.log('table', table);
-
-    return table;
+    return convertMapToArray(countedTable).sort(sortTable(matchesWithScoreAndTeams)(options));
 };

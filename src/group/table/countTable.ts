@@ -8,6 +8,7 @@ export const initRow: Omit<TTableRow, 'place' | 'team'> = {
     drawnMatches: 0,
     goalsScored: 0,
     goalsLost: 0,
+    points: 0,
 }
 
 const addToProp = (map: TMapGroup) => (prop: ERowProp) => (qtt: number = 1) => (team: TTeam): TMapGroup => {
@@ -64,6 +65,20 @@ const countGoalsLost: TCountProp = (match) => (map) => {
     return map;
 }
 
+const countPoints: TCountProp = (match) => (map) => {
+    const addPoints = addToProp(map)(ERowProp.points);
+    if (match.score.home > match.score.away) {
+        addPoints(3)(match.homeTeam);
+    } else if (match.score.home < match.score.away) {
+        addPoints(3)(match.awayTeam);
+    } else {
+        addPoints(1)(match.homeTeam);
+        addPoints(1)(match.awayTeam);
+
+    }
+    return map;
+}
+
 
 export const countTable: TCountProp = (match) => (map) => {
     return R.pipe(
@@ -72,5 +87,6 @@ export const countTable: TCountProp = (match) => (map) => {
         countDrawnMatches(match),
         countGoalsScored(match),
         countGoalsLost(match),
+        countPoints(match)
     )(map);
 } 

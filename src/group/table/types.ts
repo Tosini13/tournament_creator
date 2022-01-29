@@ -9,7 +9,8 @@ export type TMatchWithScoreAndTeams = Omit<TMatch, 'score' | 'homeTeam' | 'awayT
     awayTeam: TTeam;
 }
 
-export enum ERowProp {
+export enum ERowProp {  // TODO: typeof Object.keys
+    points = "points",
     wonMatches = "wonMatches",
     lostMatches = "lostMatches",
     drawnMatches = "drawnMatches",

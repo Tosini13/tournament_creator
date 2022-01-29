@@ -1,9 +1,10 @@
+import { Id } from './db';
 import { TGame } from './game';
 import { TMatch } from './match';
 import { TTeam } from './team';
 
 export type TGroup<T = {}> = {
-  id: string;
+  id: Id;
   name: string;
   teams: TTeam[];
   matches: TMatch[];
@@ -33,6 +34,7 @@ export type TGroupTable = TTableRow[];
 
 export type TTableRow = {
   team: TTeam;
+  points: number;
   wonMatches: number;
   lostMatches: number;
   drawnMatches: number;
