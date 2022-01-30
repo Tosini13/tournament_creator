@@ -4,6 +4,7 @@ import * as R from 'ramda';
 import { Id } from "../../models/db";
 
 export const initRow: Omit<TTableRow, 'place' | 'team'> = {
+    playedMatches: 0,
     wonMatches: 0,
     lostMatches: 0,
     drawnMatches: 0,
@@ -19,6 +20,13 @@ const addToProp = (map: TMapGroup) => (prop: ERowProp) => (qtt: number = 1) => (
     } else {
         map.set(team, { ...initRow, [prop]: qtt })
     }
+    return map;
+}
+
+const countPlayedMatches: TCountProp = (match) => (map) => {
+    const playMatch = addToProp(map)(ERowProp.playedMatches)();
+    playMatch(match.homeTeam);
+    playMatch(match.awayTeam);
     return map;
 }
 
@@ -83,6 +91,7 @@ const countPoints: TCountProp = (match) => (map) => {
 
 export const countTable: TCountProp = (match) => (map) => {
     return R.pipe(
+        countPlayedMatches(match),
         countWonMatches(match),
         countLostMatches(match),
         countDrawnMatches(match),

@@ -33,6 +33,7 @@ export type TGroupTable = TTableRow[];
 export type TTableRow = {
   team: Id;
   points: number;
+  playedMatches: number;
   wonMatches: number;
   lostMatches: number;
   drawnMatches: number;
