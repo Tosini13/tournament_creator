@@ -1,6 +1,6 @@
 import createGroup from "../../group/createGroup";
 import { getGroupTable } from "../../group/table/getGroupTable";
-import { teams } from "../mockData/teams";
+import { teams } from "../../utils/mockData/teams";
 
 describe('group creation', () => {
 

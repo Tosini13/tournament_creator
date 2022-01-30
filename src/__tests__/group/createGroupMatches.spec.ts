@@ -1,6 +1,6 @@
 import { initGroupMatch, createGroupMatches } from '../../group/createGroup';
 import { TMatch } from '../../models/match';
-import { teams } from '../mockData/teams';
+import { teams } from '../../utils/mockData/teams';
 
 test('Init Match', () => {
   const expected: TMatch = {

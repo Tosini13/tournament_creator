@@ -1,4 +1,4 @@
-import { bergerAlgorithm } from '../algorithms/berger';
+import { bergerAlgorithm } from '../utils/algorithms/berger';
 import { Id } from '../models/db';
 import { TCreateGroup, TGroup } from '../models/group';
 import { TMatch } from '../models/match';

@@ -1,6 +1,6 @@
-import { initGroupMatch } from '../group/createGroup';
-import { Id } from '../models/db';
-import { TMatch } from '../models/match';
+import { initGroupMatch } from '../../group/createGroup';
+import { Id } from '../../models/db';
+import { TMatch } from '../../models/match';
 
 type TBergerAlgorithmProps = {
   teams: Id[];
