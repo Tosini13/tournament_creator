@@ -24,9 +24,6 @@ const createGroup = ({ name, teams, rematch }: TCreateGroupProps): TCreateGroup 
 };
 export default createGroup;
 
-// create matches in group:
-// can be with rematches
-
 type TCreateGroupMatchesProps = {
   teams: Id[];
   rematch?: boolean;
@@ -41,9 +38,9 @@ export const createGroupMatches = ({ teams, rematch, revertedRematch }: TCreateG
     return matches;
   } else if (teams.length === 3) {
     const matches = [
-      initGroupMatch({ home: teams[0], away: teams[1], round: 1 }),
-      initGroupMatch({ home: teams[1], away: teams[2], round: 2 }),
-      initGroupMatch({ home: teams[2], away: teams[0], round: 3 }),
+      initGroupMatch({ home: teams[0], away: teams[1], round: 1, number: 1 }),
+      initGroupMatch({ home: teams[1], away: teams[2], round: 2, number: 2 }),
+      initGroupMatch({ home: teams[2], away: teams[0], round: 3, number: 3 }),
     ];
 
     if (rematch) {
@@ -51,7 +48,7 @@ export const createGroupMatches = ({ teams, rematch, revertedRematch }: TCreateG
     }
     return matches;
   } else if (teams.length === 2) {
-    const matches = [initGroupMatch({ home: teams[0], away: teams[1], round: 1 })];
+    const matches = [initGroupMatch({ home: teams[0], away: teams[1], round: 1, number: 1 })];
     if (rematch) {
       return [...matches, ...createGroupReMatches({ matches: matches, rounds: 1 })];
     }
@@ -65,13 +62,15 @@ type TInitMatchProps = {
   home: Id;
   away: Id;
   round: number;
+  number: number;
 };
 
-export const initGroupMatch = ({ home, away, round }: TInitMatchProps): TGroup['matches'][number] => {
+export const initGroupMatch = ({ home, away, round, number }: TInitMatchProps): TGroup['matches'][number] => {
   return {
     homeTeam: home,
     awayTeam: away,
     roundNumber: round,
+    matchNumber: number,
   };
 };
 
@@ -86,5 +85,6 @@ const createGroupReMatches = ({ matches, rounds }: TCreateGroupReMatchesProps): 
     homeTeam: match.awayTeam,
     awayTeam: match.homeTeam,
     roundNumber: match?.roundNumber && match?.roundNumber + rounds,
+    matchNumber: i + 1 + matches.length,
   }));
-}
+};

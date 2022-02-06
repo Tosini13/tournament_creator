@@ -1,6 +1,7 @@
 import { initGroupMatch } from '../../group/createGroup';
 import { Id } from '../../models/db';
 import { TMatch } from '../../models/match';
+import { iterator } from '../generators';
 
 type TBergerAlgorithmProps = {
   teams: Id[];
@@ -24,6 +25,7 @@ const bergerAlgorithmEven = ({ teams }: TBergerAlgorithmProps): TBergerAlgorithm
   const fixedTeam = teams[0];
   const roundsQty = teams.length - 1;
 
+  const iNumber = iterator(1);
   let iRound = 1;
   const matches: TMatch[] = [];
   const homeTeams: Id[] = teams.slice(1, teamsQtt / 2);
@@ -31,11 +33,11 @@ const bergerAlgorithmEven = ({ teams }: TBergerAlgorithmProps): TBergerAlgorithm
   while (iRound <= roundsQty) {
     const roundMatches = awayTeams.map((away, i) => {
       if (i === 0 && !(iRound % 2)) {
-        return initGroupMatch({ home: away, away: fixedTeam, round: iRound });
+        return initGroupMatch({ home: away, away: fixedTeam, round: iRound, number: iNumber.next().value });
       } else if (i === 0) {
-        return initGroupMatch({ home: fixedTeam, away, round: iRound });
+        return initGroupMatch({ home: fixedTeam, away, round: iRound, number: iNumber.next().value });
       }
-      return initGroupMatch({ home: homeTeams[i - 1], away, round: iRound });
+      return initGroupMatch({ home: homeTeams[i - 1], away, round: iRound, number: iNumber.next().value });
     });
 
     matches.push(...roundMatches);
@@ -54,6 +56,7 @@ const bergerAlgorithmOdd = ({ teams }: TBergerAlgorithmProps): TBergerAlgorithmR
   const roundsQty = teams.length;
 
   let iRound = 1;
+  const iNumber = iterator(1);
   const matches: TMatch[] = [];
   const homeTeams: (Id | null)[] = teams.slice(1, (teamsQtt + 1) / 2);
   const awayTeams: (Id | null)[] = [...teams.slice((teamsQtt + 1) / 2, teamsQtt), null].reverse();
@@ -65,11 +68,11 @@ const bergerAlgorithmOdd = ({ teams }: TBergerAlgorithmProps): TBergerAlgorithmR
           return null;
         }
         if (i === 0 && !(iRound % 2)) {
-          return initGroupMatch({ home: away, away: fixedTeam, round: iRound });
+          return initGroupMatch({ home: away, away: fixedTeam, round: iRound, number: iNumber.next().value });
         } else if (i === 0) {
-          return initGroupMatch({ home: fixedTeam, away, round: iRound });
+          return initGroupMatch({ home: fixedTeam, away, round: iRound, number: iNumber.next().value });
         }
-        return initGroupMatch({ home, away, round: iRound });
+        return initGroupMatch({ home, away, round: iRound, number: iNumber.next().value });
       })
       .filter((match) => match !== null) as TMatch[];
 
