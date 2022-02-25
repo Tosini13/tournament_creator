@@ -59,18 +59,29 @@ export const createGroupMatches = ({ teams, rematch, revertedRematch }: TCreateG
 };
 
 type TInitMatchProps = {
-  home: Id;
-  away: Id;
-  round: number;
+  home?: Id;
+  away?: Id;
+  round?: number;
+  roundName?: TMatch['roundName'];
   number: number;
+  placeholderGame?: TMatch['placeholderGame'];
 };
 
-export const initGroupMatch = ({ home, away, round, number }: TInitMatchProps): TGroup['matches'][number] => {
+export const initGroupMatch = ({
+  home,
+  away,
+  round,
+  roundName,
+  number,
+  placeholderGame,
+}: TInitMatchProps): TGroup['matches'][number] => {
   return {
     homeTeam: home,
     awayTeam: away,
     roundNumber: round,
+    roundName: roundName,
     matchNumber: number,
+    placeholderGame,
   };
 };
 
