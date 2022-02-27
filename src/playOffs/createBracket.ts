@@ -1,42 +1,44 @@
 import { TGame, TTeam } from '..';
 import { createGame, createGameWithTeams } from './games';
-import { getNextRound } from './round';
-import { E_PLAY_OFFS_ROUND, TRoundName } from './types';
+import { getNextRound, getRoundMatchesQty } from './round';
+import { E_PLAY_OFFS_ROUND, TReturnMatches, TRoundName } from './types';
 
-type TCreateBracketProps = {
+export type TCreateBracketProps = {
   round: TRoundName;
   teams: Array<TTeam | 'NO_TEAM'>;
-  returnMatch?: true; // TODO: change to array of booleans
+  returnMatches?: TReturnMatches; // TODO: change to array of booleans
 };
 
-export const createBracket = ({ round, teams, returnMatch }: TCreateBracketProps) => {
+export const createBracket = ({ round, teams, returnMatches }: TCreateBracketProps) => {
+  const genReturnMatches = getHasReturnMatch(returnMatches ?? []);
+  const hasReturnMatch = genReturnMatches.next().value;
   const firstRoundGames = Array.from(Array(teams.length).keys())
     .filter((n) => n % 2)
     .map((i) =>
-      createGameWithTeams(round)(getTeamId(teams[i - 1]), getTeamId(teams[i]))(Math.floor(i / 2) + 1)(returnMatch),
+      createGameWithTeams(round)(getTeamId(teams[i - 1]), getTeamId(teams[i]))(Math.floor(i / 2) + 1)(hasReturnMatch),
     );
-  return createGamesRound(returnMatch)(firstRoundGames)(getNextRound(round))();
+  return createGamesRound(genReturnMatches)(firstRoundGames)(getNextRound(round))();
 };
 
 const getTeamId = (team: TTeam | 'NO_TEAM') => (team === 'NO_TEAM' ? 'NO_TEAM' : team.id);
 
 export const createGamesRound =
-  (returnMatch?: true) =>
+  (genReturnMatches: TReturnMatchesGen) =>
   (games: TGame[]) =>
   (roundName: TRoundName) =>
   (branch?: string): TGame[] => {
+    const hasReturnMatch = genReturnMatches.next().value;
     // TODO: Add if should be only winner or looser as well: array with boolean and shift with each round
     // TODO: Add branch - A B C branch of the bracket
     const winnerGames = Array.from(Array(games.length).keys())
       .filter((n) => n % 2 === 1)
-      .map((i) => createGame(roundName)('winner')(games[i - 1], games[i])(Math.floor(i / 2) + 1)(returnMatch));
+      .map((i) => createGame(roundName)('winner')(games[i - 1], games[i])(Math.floor(i / 2) + 1)(hasReturnMatch));
 
     if (roundName === E_PLAY_OFFS_ROUND.FINAL) {
       return [...games, ...winnerGames];
     }
 
-    const nextGames = createGamesRound(returnMatch)(winnerGames)(getNextRound(roundName))();
-    // console.log('nextGames', nextGames);
+    const nextGames = createGamesRound(genReturnMatches)(winnerGames)(getNextRound(roundName))();
 
     return [...games, ...nextGames]; //winnerGames
   };
@@ -57,3 +59,12 @@ const getBracketTeamsQty = (qty: number): number => {
 };
 
 const numArray = (n: number): number[] => Array.from(Array(n).keys());
+
+function* getHasReturnMatch(returnMatches: boolean[]): TReturnMatchesGen {
+  while (returnMatches.length > 0) {
+    yield returnMatches.shift() || undefined;
+  }
+  return undefined;
+}
+
+export type TReturnMatchesGen = Generator<true | undefined, undefined, unknown>;
