@@ -1,3 +1,4 @@
+import { getBranchIterationCode, getNextChar, getNextRoundBranchChar } from '../utils/generators';
 import { E_PLAY_OFFS_ROUND, TRoundName } from './types';
 
 export const getRoundName = (teamsQty: number): TRoundName => {
@@ -31,3 +32,38 @@ export const getRoundMatchesQty = (round: TRoundName): number => {
 };
 
 export const getNextRound = (round: TRoundName): TRoundName => getRoundName(getRoundMatchesQty(round));
+
+const shouldHaveLoserBranch = (round: TRoundName) => (lastPlaceMatch: number) => (branch: string) => {
+  const matchesQtt = getRoundMatchesQty(round); // QF = 4
+  const codeI = getBranchIterationCode(branch); // A = 0
+
+  const placesInBranchesAbove = codeI * matchesQtt * 2;
+  return matchesQtt + placesInBranchesAbove < lastPlaceMatch;
+};
+
+type TBracketRound = {
+  roundName: TRoundName;
+  branch: string;
+};
+
+const createRound =
+  (round: TRoundName) =>
+  (branch: string): TBracketRound => ({ roundName: round, branch });
+
+export const createRounds =
+  (lastPlaceMatch: number) =>
+  (round: TRoundName) =>
+  (branch: string = 'A') => {
+    if (round === E_PLAY_OFFS_ROUND.FINAL) {
+      return [createRound(round)(branch)];
+    }
+    const rounds: TBracketRound[] = [];
+    const createRoundsOfBranch = createRounds(lastPlaceMatch)(getNextRound(round));
+    if (shouldHaveLoserBranch(round)(lastPlaceMatch)(branch)) {
+      const loserBranch = createRoundsOfBranch(getNextChar(getNextRoundBranchChar(branch)));
+      rounds.push(...loserBranch);
+    }
+    const winnerBranch = createRoundsOfBranch(getNextRoundBranchChar(branch));
+    rounds.push(...winnerBranch);
+    return [createRound(round)(branch), ...rounds];
+  };

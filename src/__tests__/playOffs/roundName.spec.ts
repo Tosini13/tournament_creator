@@ -1,5 +1,6 @@
-import { getRoundMatchesQty, getRoundName } from '../../playOffs/round';
+import { createRounds, getRoundMatchesQty, getRoundName } from '../../playOffs/round';
 import { E_PLAY_OFFS_ROUND } from '../../playOffs/types';
+import { getNextChar, getNextRoundBranchChar } from '../../utils/generators';
 
 describe('round name', () => {
   it('get final', () => {
@@ -28,7 +29,7 @@ describe('round name', () => {
   });
 });
 
-describe('round name', () => {
+describe('round matches qty', () => {
   it('get final matches qty', () => {
     expect(getRoundMatchesQty(E_PLAY_OFFS_ROUND.FINAL)).toEqual(1);
   });
@@ -47,5 +48,25 @@ describe('round name', () => {
 
   it('get 1/32 matches qty', () => {
     expect(getRoundMatchesQty('1/32')).toEqual(16);
+  });
+});
+
+describe('round branch char', () => {
+  it('get next char', () => {
+    expect(getNextChar()).toEqual('B');
+    expect(getNextChar('B')).toEqual('C');
+    expect(getNextChar('C')).toEqual('D');
+  });
+  it('get next char', () => {
+    expect(getNextRoundBranchChar()).toEqual('A');
+    expect(getNextRoundBranchChar('B')).toEqual('C');
+    expect(getNextRoundBranchChar('C')).toEqual('E');
+    expect(getNextRoundBranchChar('D')).toEqual('G');
+  });
+});
+
+describe('rounds bracket', () => {
+  it('create rounds array', () => {
+    const rounds = createRounds(7)(E_PLAY_OFFS_ROUND.QUARTER_FINAL)();
   });
 });

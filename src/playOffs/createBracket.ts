@@ -6,7 +6,8 @@ import { E_PLAY_OFFS_ROUND, TReturnMatches, TRoundName } from './types';
 export type TCreateBracketProps = {
   round: TRoundName;
   teams: Array<TTeam | 'NO_TEAM'>;
-  returnMatches?: TReturnMatches; // TODO: change to array of booleans
+  returnMatches?: TReturnMatches;
+  lastPlaceMatch?: number;
 };
 
 export const createBracket = ({ round, teams, returnMatches }: TCreateBracketProps) => {
