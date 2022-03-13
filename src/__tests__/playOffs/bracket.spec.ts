@@ -20,9 +20,9 @@ describe('round name', () => {
     const QF2 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[2].id, teams[3].id)(2)();
     const QF3 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[4].id, teams[5].id)(3)();
     const QF4 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[6].id, teams[7].id)(4)();
-    const SF1 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF1, QF2)(1)();
-    const SF2 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF3, QF4)(2)();
-    const F = createGame(E_PLAY_OFFS_ROUND.FINAL)('winner')(SF1, SF2)(1)();
+    const SF1 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('winner')();
+    const SF2 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('winner')();
+    const F = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();
 
     expect(bracket).toEqual([QF1, QF2, QF3, QF4, SF1, SF2, F]);
   });
@@ -37,9 +37,9 @@ describe('round name', () => {
     const QF2 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[2].id, teams[3].id)(2)();
     const QF3 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)('NO_TEAM', teams[4].id)(3)();
     const QF4 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[6].id, 'NO_TEAM')(4)();
-    const SF1 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF1, QF2)(1)();
-    const SF2 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF3, QF4)(2)();
-    const F = createGame(E_PLAY_OFFS_ROUND.FINAL)('winner')(SF1, SF2)(1)();
+    const SF1 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('winner')();
+    const SF2 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('winner')();
+    const F = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();
 
     expect(bracket).toEqual([QF1, QF2, QF3, QF4, SF1, SF2, F]);
   });
@@ -54,9 +54,9 @@ describe('round name', () => {
     const QF2 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[2].id, teams[3].id)(2)();
     const QF3 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)('NO_TEAM', teams[4].id)(3)();
     const QF4 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[6].id, teams[7].id)(4)();
-    const SF1 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF1, QF2)(1)();
-    const SF2 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF3, QF4)(2)();
-    const F = createGame(E_PLAY_OFFS_ROUND.FINAL)('winner')(SF1, SF2)(1)();
+    const SF1 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('winner')();
+    const SF2 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('winner')();
+    const F = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();
 
     expect(bracket).toEqual([QF1, QF2, QF3, QF4, SF1, SF2, F]);
   });
@@ -72,9 +72,9 @@ describe('round name', () => {
     const QF2 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[2].id, teams[3].id)(2)(true);
     const QF3 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[4].id, teams[5].id)(3)(true);
     const QF4 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[6].id, teams[7].id)(4)(true);
-    const SF1 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF1, QF2)(1)();
-    const SF2 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF3, QF4)(2)();
-    const F = createGame(E_PLAY_OFFS_ROUND.FINAL)('winner')(SF1, SF2)(1)();
+    const SF1 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('winner')();
+    const SF2 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('winner')();
+    const F = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();
 
     expect(bracket).toEqual([QF1, QF2, QF3, QF4, SF1, SF2, F]);
   });
@@ -89,9 +89,9 @@ describe('round name', () => {
     const QF2 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[2].id, teams[3].id)(2)();
     const QF3 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[4].id, teams[5].id)(3)();
     const QF4 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[6].id, teams[7].id)(4)();
-    const SF1 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF1, QF2)(1)(true);
-    const SF2 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF3, QF4)(2)(true);
-    const F = createGame(E_PLAY_OFFS_ROUND.FINAL)('winner')(SF1, SF2)(1)();
+    const SF1 = createGame(true)(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('winner')();
+    const SF2 = createGame(true)(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('winner')();
+    const F = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();
 
     expect(bracket).toEqual([QF1, QF2, QF3, QF4, SF1, SF2, F]);
   });
@@ -107,9 +107,9 @@ describe('round name', () => {
     const QF2 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[2].id, teams[3].id)(2)();
     const QF3 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[4].id, teams[5].id)(3)();
     const QF4 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[6].id, teams[7].id)(4)();
-    const SF1 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF1, QF2)(1)();
-    const SF2 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF3, QF4)(2)();
-    const F = createGame(E_PLAY_OFFS_ROUND.FINAL)('winner')(SF1, SF2)(1)(true);
+    const SF1 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('winner')();
+    const SF2 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('winner')();
+    const F = createGame(true)(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();
 
     expect(bracket).toEqual([QF1, QF2, QF3, QF4, SF1, SF2, F]);
   });
@@ -125,9 +125,9 @@ describe('round name', () => {
     const QF2 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[2].id, teams[3].id)(2)(true);
     const QF3 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)('NO_TEAM', teams[4].id)(3)(true);
     const QF4 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[6].id, 'NO_TEAM')(4)(true);
-    const SF1 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF1, QF2)(1)(true);
-    const SF2 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF3, QF4)(2)(true);
-    const F = createGame(E_PLAY_OFFS_ROUND.FINAL)('winner')(SF1, SF2)(1)(true);
+    const SF1 = createGame(true)(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('winner')();
+    const SF2 = createGame(true)(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('winner')();
+    const F = createGame(true)(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();
 
     expect(bracket).toEqual([QF1, QF2, QF3, QF4, SF1, SF2, F]);
   });
@@ -142,9 +142,9 @@ describe('round name', () => {
     const QF2 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[2].id, teams[3].id)(2)();
     const QF3 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[4].id, teams[5].id)(3)();
     const QF4 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[6].id, teams[7].id)(4)();
-    const SF1 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF1, QF2)(1)();
-    const SF2 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF3, QF4)(2)();
-    const F = createGame(E_PLAY_OFFS_ROUND.FINAL)('winner')(SF1, SF2)(1)();
+    const SF1 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('winner')();
+    const SF2 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('winner')();
+    const F = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();
 
     expect(bracket).toEqual([QF1, QF2, QF3, QF4, SF1, SF2, F]);
   });
@@ -159,10 +159,10 @@ describe('round name', () => {
     const QF2 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[2].id, teams[3].id)(2)();
     const QF3 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[4].id, teams[5].id)(3)();
     const QF4 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[6].id, teams[7].id)(4)();
-    const SF1 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF1, QF2)(1)();
-    const SF2 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF3, QF4)(2)();
-    const F = createGame(E_PLAY_OFFS_ROUND.FINAL)('winner')(SF1, SF2)(1)();
-    const FB = createGame(E_PLAY_OFFS_ROUND.FINAL, 'B')('looser')(SF1, SF2)(1)();
+    const SF1 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('winner')();
+    const SF2 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('winner')();
+    const F = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();
+    const FB = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('looser')('B');
 
     expect(bracket).toEqual([QF1, QF2, QF3, QF4, SF1, SF2, FB, F]);
   });
@@ -178,13 +178,13 @@ describe('round name', () => {
     const QF2 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[2].id, teams[3].id)(2)();
     const QF3 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[4].id, teams[5].id)(3)();
     const QF4 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[6].id, teams[7].id)(4)();
-    const SFB1 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL, 'B')('looser')(QF1, QF2)(1)();
-    const SFB2 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL, 'B')('looser')(QF3, QF4)(2)();
-    const SF1 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF1, QF2)(1)();
-    const SF2 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF3, QF4)(2)();
-    const F = createGame(E_PLAY_OFFS_ROUND.FINAL)('winner')(SF1, SF2)(1)();
-    const FB = createGame(E_PLAY_OFFS_ROUND.FINAL, 'B')('looser')(SF1, SF2)(1)();
-    const FC = createGame(E_PLAY_OFFS_ROUND.FINAL, 'C')('winner')(SFB1, SFB2)(1)();
+    const SFB1 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('looser')('B');
+    const SFB2 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('looser')('B');
+    const SF1 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('winner')();
+    const SF2 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('winner')();
+    const F = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();
+    const FB = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('looser')('B');
+    const FC = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SFB1, SFB2)(1)('winner')('C');
 
     expect(bracket).toEqual([QF1, QF2, QF3, QF4, SFB1, SFB2, FC, SF1, SF2, FB, F]);
   });
@@ -199,14 +199,14 @@ describe('round name', () => {
     const QF2 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[2].id, teams[3].id)(2)();
     const QF3 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[4].id, teams[5].id)(3)();
     const QF4 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[6].id, teams[7].id)(4)();
-    const SFB1 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL, 'B')('looser')(QF1, QF2)(1)();
-    const SFB2 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL, 'B')('looser')(QF3, QF4)(2)();
-    const SF1 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF1, QF2)(1)();
-    const SF2 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF3, QF4)(2)();
-    const F = createGame(E_PLAY_OFFS_ROUND.FINAL)('winner')(SF1, SF2)(1)();
-    const FB = createGame(E_PLAY_OFFS_ROUND.FINAL, 'B')('looser')(SF1, SF2)(1)();
-    const FC = createGame(E_PLAY_OFFS_ROUND.FINAL, 'C')('winner')(SFB1, SFB2)(1)();
-    const FD = createGame(E_PLAY_OFFS_ROUND.FINAL, 'D')('looser')(SFB1, SFB2)(1)();
+    const SFB1 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('looser')('B');
+    const SFB2 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('looser')('B');
+    const SF1 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('winner')();
+    const SF2 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('winner')();
+    const F = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();
+    const FB = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('looser')('B');
+    const FC = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SFB1, SFB2)(1)('winner')('C');
+    const FD = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SFB1, SFB2)(1)('looser')('D');
 
     expect(bracket).toEqual([QF1, QF2, QF3, QF4, SFB1, SFB2, FD, FC, SF1, SF2, FB, F]);
   });

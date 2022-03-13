@@ -68,7 +68,6 @@ describe('round branch char', () => {
 describe('rounds bracket', () => {
   it('create rounds array', () => {
     const rounds = createRounds(3)(E_PLAY_OFFS_ROUND.QUARTER_FINAL)();
-    console.log('rounds', rounds);
   });
 });
 
@@ -91,3 +90,7 @@ describe('shouldHaveLoserBranch', () => {
     expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.SEMI_FINAL)(7)('B')).toEqual(true);
   });
 });
+
+// createGame\((.*?)\)\((.*?)\)\((.*?)\)\((.*?)\)\((.*?)\)
+// createGame($5)($1)($3)($4)($2)()
+// const F = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();

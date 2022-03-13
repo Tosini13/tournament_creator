@@ -4,11 +4,10 @@ import { TPromotionType, TRoundName } from './types';
 
 export const createGame =  // TODO: Time
   (
-    roundName: TRoundName, // 2
-    branch?: string,
+    returnMatch?: true, // 1
   ) =>
   (
-    promotionType: TPromotionType, // 4
+    roundName: TRoundName, // 2
   ) =>
   (
     homeGame?: TGame,
@@ -18,8 +17,9 @@ export const createGame =  // TODO: Time
     gameNumber: number, // 3
   ) =>
   (
-    returnMatch?: true, // 1
-  ): TGame => {
+    promotionType: TPromotionType, // 4
+  ) =>
+  (branch?: string): TGame => {
     const match = initGroupMatch({
       roundName,
       branch,

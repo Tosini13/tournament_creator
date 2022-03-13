@@ -1,4 +1,5 @@
 import { TGame, TTeam } from '..';
+import { getEvery2Elements } from '../utils/array/array';
 import { getNextChar, getNextRoundBranchChar } from '../utils/generators';
 import { createGame, createGameWithTeams } from './games';
 import { getNextRound, getRoundMatchesQty, shouldHaveLoserBranch } from './round';
@@ -52,8 +53,6 @@ function* getHasReturnMatch(returnMatches: boolean[]): TReturnMatchesGen {
 
 export type TReturnMatchesGen = Generator<true | undefined, undefined, unknown>;
 
-// ------ NEW:
-
 export const createGamesRound =
   (genReturnMatches: TReturnMatchesGen) =>
   (lastPlaceMatch: number = 1) =>
@@ -62,39 +61,34 @@ export const createGamesRound =
   (branch?: string) =>
   (haveLoserBranch?: boolean): TGame[] => {
     const hasReturnMatch = genReturnMatches.next().value;
-    // TODO: Add if should be only winner or looser as well: array with boolean and shift with each round
-    // TODO: Add branch - A B C branch of the bracket
-    const winnerGames = Array.from(Array(games.length).keys())
-      .filter((n) => n % 2 === 1)
-      .map((i) =>
-        createGame(roundName, branch)('winner')(games[i - 1], games[i])(Math.floor(i / 2) + 1)(hasReturnMatch),
-      );
+    const createBranchGame = createGame(hasReturnMatch)(roundName);
+
+    const winnerGames = getEvery2Elements(games)((game1, game2, i) =>
+      createBranchGame(game1, game2)(i + 1)('winner')(branch),
+    );
 
     let loserGames: TGame[] = [];
 
     if (haveLoserBranch) {
-      loserGames = Array.from(Array(games.length).keys())
-        .filter((n) => n % 2 === 1)
-        .map((i) =>
-          createGame(roundName, getNextChar(branch))('looser')(games[i - 1], games[i])(Math.floor(i / 2) + 1)(
-            hasReturnMatch,
-          ),
-        );
+      loserGames = getEvery2Elements(games)((game1, game2, i) =>
+        createBranchGame(game1, game2)(i + 1)('looser')(getNextChar(branch)),
+      );
     }
 
     if (roundName === E_PLAY_OFFS_ROUND.FINAL) {
       return [...games, ...loserGames, ...winnerGames];
     }
+    const createBranchRound = createGamesRound(genReturnMatches)(lastPlaceMatch)(getNextRound(roundName));
 
-    const nextWinnerGames = createGamesRound(genReturnMatches)(lastPlaceMatch)(getNextRound(roundName))(winnerGames)(
-      getNextRoundBranchChar(branch),
-    )(shouldHaveLoserBranch(roundName)(lastPlaceMatch)(branch));
+    const nextWinnerGames = createBranchRound(winnerGames)(getNextRoundBranchChar(branch))(
+      shouldHaveLoserBranch(roundName)(lastPlaceMatch)(branch),
+    );
 
     let nextLoserGames: TGame[] = [];
     if (loserGames.length) {
-      nextLoserGames = createGamesRound(genReturnMatches)(lastPlaceMatch)(getNextRound(roundName))(loserGames)(
-        getNextRoundBranchChar(getNextChar(branch)),
-      )(shouldHaveLoserBranch(roundName)(lastPlaceMatch)(getNextChar(branch)));
+      nextLoserGames = createBranchRound(loserGames)(getNextRoundBranchChar(getNextChar(branch)))(
+        shouldHaveLoserBranch(roundName)(lastPlaceMatch)(getNextChar(branch)),
+      );
     }
 
     return [...games, ...nextLoserGames, ...nextWinnerGames];

@@ -60,7 +60,7 @@ describe('game', () => {
     const nextRound = E_PLAY_OFFS_ROUND.SEMI_FINAL;
     const qf1 = createGameWithTeams(firstRound)(teams[0].id, teams[1].id)(gameNumber++)();
     const qf2 = createGameWithTeams(firstRound)(teams[0].id, teams[1].id)(gameNumber++)();
-    const game = createGame(nextRound)('winner')(qf1, qf2)(gameNumber)();
+    const game = createGame()(nextRound)(qf1, qf2)(gameNumber)('winner')();
 
     const match: TMatch = {
       matchNumber: gameNumber,
@@ -96,7 +96,7 @@ describe('game', () => {
     const nextRound = E_PLAY_OFFS_ROUND.SEMI_FINAL;
     const qf1 = createGameWithTeams(firstRound)(teams[0].id, teams[1].id)(gameNumber++)();
     const qf2 = createGameWithTeams(firstRound)(teams[0].id, teams[1].id)(gameNumber++)();
-    const game = createGame(nextRound)('winner')(qf1, qf2)(gameNumber)(true);
+    const game = createGame(true)(nextRound)(qf1, qf2)(gameNumber)('winner')();
 
     const match: TMatch = {
       matchNumber: gameNumber,
@@ -154,7 +154,7 @@ describe('game', () => {
     const nextRound = E_PLAY_OFFS_ROUND.SEMI_FINAL;
     const qf1 = createGameWithTeams(firstRound)(teams[0].id, 'NO_TEAM')(gameNumber++)();
     const qf2 = createGameWithTeams(firstRound)(teams[1].id, teams[2].id)(gameNumber++)();
-    const game = createGame(nextRound)('winner')(qf1, qf2)(gameNumber)();
+    const game = createGame()(nextRound)(qf1, qf2)(gameNumber)('winner')();
 
     const match: TMatch = {
       matchNumber: gameNumber,
@@ -191,7 +191,7 @@ describe('game', () => {
     const nextRound = E_PLAY_OFFS_ROUND.SEMI_FINAL;
     const qf1 = createGameWithTeams(firstRound)(teams[0].id, 'NO_TEAM')(gameNumber++)();
     const qf2 = createGameWithTeams(firstRound)(teams[1].id, teams[2].id)(gameNumber++)();
-    const game = createGame(nextRound)('winner')(qf1, qf2)(gameNumber)(true);
+    const game = createGame(true)(nextRound)(qf1, qf2)(gameNumber)('winner')();
 
     const match: TMatch = {
       matchNumber: gameNumber,
@@ -251,7 +251,7 @@ describe('game', () => {
     const nextRound = E_PLAY_OFFS_ROUND.SEMI_FINAL;
     const qf1 = createGameWithTeams(firstRound)(teams[0].id, teams[1].id)(gameNumber++)();
     const qf2 = createGameWithTeams(firstRound)('NO_TEAM', teams[2].id)(gameNumber++)();
-    const game = createGame(nextRound)('winner')(qf1, qf2)(gameNumber)();
+    const game = createGame()(nextRound)(qf1, qf2)(gameNumber)('winner')();
 
     const match: TMatch = {
       matchNumber: gameNumber,
@@ -288,7 +288,7 @@ describe('game', () => {
     const nextRound = E_PLAY_OFFS_ROUND.SEMI_FINAL;
     const qf1 = createGameWithTeams(firstRound)(teams[0].id, 'NO_TEAM')(gameNumber++)();
     const qf2 = createGameWithTeams(firstRound)('NO_TEAM', teams[2].id)(gameNumber++)();
-    const game = createGame(nextRound)('winner')(qf1, qf2)(gameNumber)();
+    const game = createGame()(nextRound)(qf1, qf2)(gameNumber)('winner')();
 
     const match: TMatch = {
       matchNumber: gameNumber,
@@ -325,9 +325,9 @@ describe('game', () => {
     const QF2 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[1].id, teams[2].id)(2)();
     const QF3 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[3].id, teams[4].id)(3)();
     const QF4 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[5].id, teams[6].id)(4)();
-    const SF1 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF1, QF2)(1)();
-    const SF2 = createGame(E_PLAY_OFFS_ROUND.SEMI_FINAL)('winner')(QF3, QF4)(2)();
-    const F = createGame(E_PLAY_OFFS_ROUND.FINAL)('winner')(SF1, SF2)(1)();
+    const SF1 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('winner')();
+    const SF2 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('winner')();
+    const F = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();
 
     const match: TMatch = {
       matchNumber: 1,
