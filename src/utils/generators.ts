@@ -15,6 +15,7 @@ export function* power2iterator(initI: number): Generator<number> {
 const CAPITAL_LETTER_FIRST_LETTER = 65;
 
 export const getNextRoundBranchChar = (branch?: string) => {
+  if (!branch) return undefined;
   const x = getBranchIterationCode(branch);
   if (x === 0) return String.fromCharCode(CAPITAL_LETTER_FIRST_LETTER);
   return String.fromCharCode(x * 2 + CAPITAL_LETTER_FIRST_LETTER);

@@ -33,13 +33,16 @@ export const getRoundMatchesQty = (round: TRoundName): number => {
 
 export const getNextRound = (round: TRoundName): TRoundName => getRoundName(getRoundMatchesQty(round));
 
-const shouldHaveLoserBranch = (round: TRoundName) => (lastPlaceMatch: number) => (branch: string) => {
-  const matchesQtt = getRoundMatchesQty(round); // QF = 4
-  const codeI = getBranchIterationCode(branch); // A = 0
+export const shouldHaveLoserBranch =
+  (round: TRoundName) =>
+  (lastPlaceMatch: number = 1) =>
+  (branch: string = 'A') => {
+    const matchesQtt = getRoundMatchesQty(round); // QF = 4
+    const codeI = getBranchIterationCode(branch); // A = 0
 
-  const placesInBranchesAbove = codeI * matchesQtt * 2;
-  return matchesQtt + placesInBranchesAbove < lastPlaceMatch;
-};
+    const placesInBranchesAbove = codeI * matchesQtt * 2;
+    return matchesQtt + placesInBranchesAbove < lastPlaceMatch;
+  };
 
 type TBracketRound = {
   roundName: TRoundName;

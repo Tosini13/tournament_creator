@@ -6,6 +6,7 @@ export type TMatch<T = {}> = {
   matchNumber: number;
   roundNumber?: number;
   roundName?: string;
+  branch?: string;
   homeTeam?: Id | 'NO_TEAM';
   awayTeam?: Id | 'NO_TEAM';
   score?: TScore;
@@ -24,6 +25,7 @@ export type TPlaceholderGameTeam = {
   game: {
     roundName: TRoundName;
     gameNumber: number;
+    branch?: string;
   };
   promotionType: TPromotionType;
 };
