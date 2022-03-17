@@ -1,47 +1,30 @@
 import { TGame, TTeam } from '..';
+import { getEvery2Elements } from '../utils/array/array';
+import { getNextChar, getNextRoundBranchChar } from '../utils/generators';
 import { createGame, createGameWithTeams } from './games';
-import { getNextRound, getRoundMatchesQty } from './round';
+import { getNextRound, getRoundMatchesQty, shouldHaveLoserBranch } from './round';
 import { E_PLAY_OFFS_ROUND, TReturnMatches, TRoundName } from './types';
 
 export type TCreateBracketProps = {
   round: TRoundName;
   teams: Array<TTeam | 'NO_TEAM'>;
-  returnMatches?: TReturnMatches; // TODO: change to array of booleans
+  returnMatches?: TReturnMatches;
+  lastPlaceMatch?: number;
 };
 
-export const createBracket = ({ round, teams, returnMatches }: TCreateBracketProps) => {
-  const genReturnMatches = getHasReturnMatch(returnMatches ?? []);
-  const hasReturnMatch = genReturnMatches.next().value;
+export const createBracket = ({ round, teams, returnMatches, lastPlaceMatch }: TCreateBracketProps) => {
+  const hasReturnMatch = returnMatches?.shift() || undefined;
   const firstRoundGames = Array.from(Array(teams.length).keys())
     .filter((n) => n % 2)
     .map((i) =>
       createGameWithTeams(round)(getTeamId(teams[i - 1]), getTeamId(teams[i]))(Math.floor(i / 2) + 1)(hasReturnMatch),
     );
-  return createGamesRound(genReturnMatches)(firstRoundGames)(getNextRound(round))();
+  return createGamesRound([...(returnMatches ?? [])])(lastPlaceMatch)(getNextRound(round))(firstRoundGames)()(
+    shouldHaveLoserBranch(round)(lastPlaceMatch)(),
+  );
 };
 
 const getTeamId = (team: TTeam | 'NO_TEAM') => (team === 'NO_TEAM' ? 'NO_TEAM' : team.id);
-
-export const createGamesRound =
-  (genReturnMatches: TReturnMatchesGen) =>
-  (games: TGame[]) =>
-  (roundName: TRoundName) =>
-  (branch?: string): TGame[] => {
-    const hasReturnMatch = genReturnMatches.next().value;
-    // TODO: Add if should be only winner or looser as well: array with boolean and shift with each round
-    // TODO: Add branch - A B C branch of the bracket
-    const winnerGames = Array.from(Array(games.length).keys())
-      .filter((n) => n % 2 === 1)
-      .map((i) => createGame(roundName)('winner')(games[i - 1], games[i])(Math.floor(i / 2) + 1)(hasReturnMatch));
-
-    if (roundName === E_PLAY_OFFS_ROUND.FINAL) {
-      return [...games, ...winnerGames];
-    }
-
-    const nextGames = createGamesRound(genReturnMatches)(winnerGames)(getNextRound(roundName))();
-
-    return [...games, ...nextGames]; //winnerGames
-  };
 
 // TODO: Create function that creates nested array with teams or games (generic)
 
@@ -68,3 +51,44 @@ function* getHasReturnMatch(returnMatches: boolean[]): TReturnMatchesGen {
 }
 
 export type TReturnMatchesGen = Generator<true | undefined, undefined, unknown>;
+
+export const createGamesRound =
+  (returnMatches: TReturnMatches) =>
+  (lastPlaceMatch: number = 1) =>
+  (roundName: TRoundName) =>
+  (games: TGame[]) =>
+  (branch?: string) =>
+  (haveLoserBranch?: boolean): TGame[] => {
+    const hasReturnMatch = returnMatches[0] || undefined;
+    const createBranchGame = createGame(hasReturnMatch)(roundName);
+
+    const winnerGames = getEvery2Elements(games)((game1, game2, i) =>
+      createBranchGame(game1, game2)(i + 1)('winner')(branch),
+    );
+
+    let loserGames: TGame[] = [];
+
+    if (haveLoserBranch) {
+      loserGames = getEvery2Elements(games)((game1, game2, i) =>
+        createBranchGame(game1, game2)(i + 1)('looser')(getNextChar(branch)),
+      );
+    }
+
+    if (roundName === E_PLAY_OFFS_ROUND.FINAL) {
+      return [...games, ...loserGames, ...winnerGames];
+    }
+    const createBranchRound = createGamesRound([...returnMatches.slice(1)])(lastPlaceMatch)(getNextRound(roundName));
+
+    const nextWinnerGames = createBranchRound(winnerGames)(getNextRoundBranchChar(branch))(
+      shouldHaveLoserBranch(roundName)(lastPlaceMatch)(branch),
+    );
+
+    let nextLoserGames: TGame[] = [];
+    if (loserGames.length) {
+      nextLoserGames = createBranchRound(loserGames)(getNextRoundBranchChar(getNextChar(branch)))(
+        shouldHaveLoserBranch(roundName)(lastPlaceMatch)(getNextChar(branch)),
+      );
+    }
+
+    return [...games, ...nextLoserGames, ...nextWinnerGames];
+  };

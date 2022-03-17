@@ -1,5 +1,6 @@
-import { getRoundMatchesQty, getRoundName } from '../../playOffs/round';
+import { createRounds, getRoundMatchesQty, getRoundName, shouldHaveLoserBranch } from '../../playOffs/round';
 import { E_PLAY_OFFS_ROUND } from '../../playOffs/types';
+import { getNextChar, getNextRoundBranchChar } from '../../utils/generators';
 
 describe('round name', () => {
   it('get final', () => {
@@ -28,7 +29,7 @@ describe('round name', () => {
   });
 });
 
-describe('round name', () => {
+describe('round matches qty', () => {
   it('get final matches qty', () => {
     expect(getRoundMatchesQty(E_PLAY_OFFS_ROUND.FINAL)).toEqual(1);
   });
@@ -49,3 +50,47 @@ describe('round name', () => {
     expect(getRoundMatchesQty('1/32')).toEqual(16);
   });
 });
+
+describe('round branch char', () => {
+  it('get next char', () => {
+    expect(getNextChar()).toEqual('B');
+    expect(getNextChar('B')).toEqual('C');
+    expect(getNextChar('C')).toEqual('D');
+  });
+  it('get next char', () => {
+    expect(getNextRoundBranchChar()).toEqual(undefined);
+    expect(getNextRoundBranchChar('B')).toEqual('C');
+    expect(getNextRoundBranchChar('C')).toEqual('E');
+    expect(getNextRoundBranchChar('D')).toEqual('G');
+  });
+});
+
+describe('rounds bracket', () => {
+  it('create rounds array', () => {
+    const rounds = createRounds(3)(E_PLAY_OFFS_ROUND.QUARTER_FINAL)();
+  });
+});
+
+describe('shouldHaveLoserBranch', () => {
+  it('shouldHaveLoserBranch QUARTER_FINAL', () => {
+    expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(1)()).toEqual(false);
+    expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(3)()).toEqual(false);
+    expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(5)()).toEqual(true);
+    expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(7)()).toEqual(true);
+
+    expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(9)('B')).toEqual(false);
+    expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(11)('B')).toEqual(false);
+    expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(13)('B')).toEqual(true);
+    expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(15)('B')).toEqual(true);
+  });
+  it('shouldHaveLoserBranch SEMNI_FINALS', () => {
+    expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.SEMI_FINAL)(1)()).toEqual(false);
+    expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.SEMI_FINAL)(3)()).toEqual(true);
+    expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.SEMI_FINAL)(5)('B')).toEqual(false);
+    expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.SEMI_FINAL)(7)('B')).toEqual(true);
+  });
+});
+
+// createGame\((.*?)\)\((.*?)\)\((.*?)\)\((.*?)\)\((.*?)\)
+// createGame($5)($1)($3)($4)($2)()
+// const F = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();

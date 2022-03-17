@@ -63,6 +63,7 @@ type TInitMatchProps = {
   away?: Id;
   round?: number;
   roundName?: TMatch['roundName'];
+  branch?: string;
   number: number;
   placeholderGame?: TMatch['placeholderGame'];
 };
@@ -72,6 +73,7 @@ export const initGroupMatch = ({
   away,
   round,
   roundName,
+  branch,
   number,
   placeholderGame,
 }: TInitMatchProps): TGroup['matches'][number] => {
@@ -79,6 +81,7 @@ export const initGroupMatch = ({
     homeTeam: home,
     awayTeam: away,
     roundNumber: round,
+    branch: branch,
     roundName: roundName,
     matchNumber: number,
     placeholderGame,
