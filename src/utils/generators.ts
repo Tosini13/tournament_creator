@@ -5,13 +5,6 @@ export function* iterator(initI: number): Generator<number> {
   }
 }
 
-export function* power2iterator(initI: number): Generator<number> {
-  let i = initI ?? 0;
-  while (true) {
-    yield i ** 2;
-  }
-}
-
 const CAPITAL_LETTER_FIRST_LETTER = 65;
 
 export const getNextRoundBranchChar = (branch?: string) => {

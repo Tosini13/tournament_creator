@@ -7,6 +7,6 @@ const reducetoNextedArray = <TElement>(prev: TElement[][], current: TElement, i:
 const init: any[][] = [];
 
 export const getEvery2Elements =
-  <TElement = any, TReturn = any>(arr: Array<TElement>) =>
+  <TElement = any, TReturn = any>(arr: TElement[]) =>
   (fn: (item: TElement, item2: TElement, index: number) => TReturn) =>
     arr.reduce(reducetoNextedArray, init).map(([item1, item2], i) => fn(item1, item2, i));

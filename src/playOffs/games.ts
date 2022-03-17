@@ -23,7 +23,7 @@ export const createGame =  // TODO: Time
     const match = initGroupMatch({
       roundName,
       branch,
-      number: gameNumber,
+      matchNumber: gameNumber,
       home: getOnlyTeam(homeGame?.match.homeTeam, homeGame?.match.awayTeam),
       away: getOnlyTeam(awayGame?.match.homeTeam, awayGame?.match.awayTeam),
       placeholderGame: {
@@ -37,7 +37,7 @@ export const createGame =  // TODO: Time
       initGroupMatch({
         roundName,
         branch,
-        number: gameNumber,
+        matchNumber: gameNumber,
         home: getOnlyTeam(awayGame?.match.homeTeam, awayGame?.match.awayTeam),
         away: getOnlyTeam(homeGame?.match.homeTeam, homeGame?.match.awayTeam),
         placeholderGame: {
@@ -78,7 +78,7 @@ const setPlaceHolderGame = (
   branch?: string,
 ): TPlaceholderGameTeam => ({
   game: {
-    gameNumber: gameNumber,
+    gameNumber,
     roundName: round,
     branch,
   },
@@ -106,7 +106,7 @@ export const createGameWithTeams =  // TODO: Time
       // TODO: Change to not only group match
       roundName,
       branch,
-      number: gameNumber,
+      matchNumber: gameNumber,
       home: homeTeamId,
       away: awayTeamId,
     }),
@@ -115,7 +115,7 @@ export const createGameWithTeams =  // TODO: Time
       initGroupMatch({
         roundName,
         branch,
-        number: gameNumber,
+        matchNumber: gameNumber,
         home: awayTeamId,
         away: homeTeamId,
       }),

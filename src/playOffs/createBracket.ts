@@ -7,7 +7,7 @@ import { E_PLAY_OFFS_ROUND, TReturnMatches, TRoundName } from './types';
 
 export type TCreateBracketProps = {
   round: TRoundName;
-  teams: Array<TTeam | 'NO_TEAM'>;
+  teams: (TTeam | 'NO_TEAM')[];
   returnMatches?: TReturnMatches;
   lastPlaceMatch?: number;
 };
@@ -28,7 +28,7 @@ const getTeamId = (team: TTeam | 'NO_TEAM') => (team === 'NO_TEAM' ? 'NO_TEAM' :
 
 // TODO: Create function that creates nested array with teams or games (generic)
 
-export const createInitTeamsArray = (teams: Array<TTeam | undefined>): Array<TTeam | 'NO_TEAM'> =>
+export const createInitTeamsArray = (teams: (TTeam | undefined)[]): (TTeam | 'NO_TEAM')[] =>
   [...teams, ...numArray(getBracketTeamsQty(teams.length) - teams.length).map(() => undefined)].map(
     (team) => team ?? 'NO_TEAM',
   );

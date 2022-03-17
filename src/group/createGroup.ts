@@ -33,24 +33,24 @@ export const createGroupMatches = ({ teams, rematch, revertedRematch }: TCreateG
   if (teams.length > 3) {
     const { matches, rounds } = bergerAlgorithm({ teams });
     if (rematch) {
-      return [...matches, ...createGroupReMatches({ matches: matches, rounds })];
+      return [...matches, ...createGroupReMatches({ matches, rounds })];
     }
     return matches;
   } else if (teams.length === 3) {
     const matches = [
-      initGroupMatch({ home: teams[0], away: teams[1], round: 1, number: 1 }),
-      initGroupMatch({ home: teams[1], away: teams[2], round: 2, number: 2 }),
-      initGroupMatch({ home: teams[2], away: teams[0], round: 3, number: 3 }),
+      initGroupMatch({ home: teams[0], away: teams[1], round: 1, matchNumber: 1 }),
+      initGroupMatch({ home: teams[1], away: teams[2], round: 2, matchNumber: 2 }),
+      initGroupMatch({ home: teams[2], away: teams[0], round: 3, matchNumber: 3 }),
     ];
 
     if (rematch) {
-      return [...matches, ...createGroupReMatches({ matches: matches, rounds: 3 })];
+      return [...matches, ...createGroupReMatches({ matches, rounds: 3 })];
     }
     return matches;
   } else if (teams.length === 2) {
-    const matches = [initGroupMatch({ home: teams[0], away: teams[1], round: 1, number: 1 })];
+    const matches = [initGroupMatch({ home: teams[0], away: teams[1], round: 1, matchNumber: 1 })];
     if (rematch) {
-      return [...matches, ...createGroupReMatches({ matches: matches, rounds: 1 })];
+      return [...matches, ...createGroupReMatches({ matches, rounds: 1 })];
     }
     return matches;
   } else {
@@ -64,7 +64,7 @@ type TInitMatchProps = {
   round?: number;
   roundName?: TMatch['roundName'];
   branch?: string;
-  number: number;
+  matchNumber: number;
   placeholderGame?: TMatch['placeholderGame'];
 };
 
@@ -74,16 +74,16 @@ export const initGroupMatch = ({
   round,
   roundName,
   branch,
-  number,
+  matchNumber,
   placeholderGame,
 }: TInitMatchProps): TGroup['matches'][number] => {
   return {
     homeTeam: home,
     awayTeam: away,
     roundNumber: round,
-    branch: branch,
-    roundName: roundName,
-    matchNumber: number,
+    branch,
+    roundName,
+    matchNumber,
     placeholderGame,
   };
 };

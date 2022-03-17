@@ -33,11 +33,11 @@ const bergerAlgorithmEven = ({ teams }: TBergerAlgorithmProps): TBergerAlgorithm
   while (iRound <= roundsQty) {
     const roundMatches = awayTeams.map((away, i) => {
       if (i === 0 && !(iRound % 2)) {
-        return initGroupMatch({ home: away, away: fixedTeam, round: iRound, number: iNumber.next().value });
+        return initGroupMatch({ home: away, away: fixedTeam, round: iRound, matchNumber: iNumber.next().value });
       } else if (i === 0) {
-        return initGroupMatch({ home: fixedTeam, away, round: iRound, number: iNumber.next().value });
+        return initGroupMatch({ home: fixedTeam, away, round: iRound, matchNumber: iNumber.next().value });
       }
-      return initGroupMatch({ home: homeTeams[i - 1], away, round: iRound, number: iNumber.next().value });
+      return initGroupMatch({ home: homeTeams[i - 1], away, round: iRound, matchNumber: iNumber.next().value });
     });
 
     matches.push(...roundMatches);
@@ -68,11 +68,11 @@ const bergerAlgorithmOdd = ({ teams }: TBergerAlgorithmProps): TBergerAlgorithmR
           return null;
         }
         if (i === 0 && !(iRound % 2)) {
-          return initGroupMatch({ home: away, away: fixedTeam, round: iRound, number: iNumber.next().value });
+          return initGroupMatch({ home: away, away: fixedTeam, round: iRound, matchNumber: iNumber.next().value });
         } else if (i === 0) {
-          return initGroupMatch({ home: fixedTeam, away, round: iRound, number: iNumber.next().value });
+          return initGroupMatch({ home: fixedTeam, away, round: iRound, matchNumber: iNumber.next().value });
         }
-        return initGroupMatch({ home, away, round: iRound, number: iNumber.next().value });
+        return initGroupMatch({ home, away, round: iRound, matchNumber: iNumber.next().value });
       })
       .filter((match) => match !== null) as TMatch[];
 

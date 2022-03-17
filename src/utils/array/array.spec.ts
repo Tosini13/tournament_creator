@@ -9,7 +9,6 @@ describe('array', () => {
   it('getEvery2Elements', () => {
     const arr = [1, 2, 3, 4, 5, 6];
     const map = getEvery2Elements(arr);
-    let i = 0;
     const array = map((item1, item2, index) => [item1, item2, item1 + item2, index]);
     expect(array).toEqual(sameReturn);
   });
