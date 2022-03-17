@@ -13,14 +13,13 @@ export type TCreateBracketProps = {
 };
 
 export const createBracket = ({ round, teams, returnMatches, lastPlaceMatch }: TCreateBracketProps) => {
-  const genReturnMatches = getHasReturnMatch(returnMatches ?? []);
-  const hasReturnMatch = genReturnMatches.next().value;
+  const hasReturnMatch = returnMatches?.shift() || undefined;
   const firstRoundGames = Array.from(Array(teams.length).keys())
     .filter((n) => n % 2)
     .map((i) =>
       createGameWithTeams(round)(getTeamId(teams[i - 1]), getTeamId(teams[i]))(Math.floor(i / 2) + 1)(hasReturnMatch),
     );
-  return createGamesRound(genReturnMatches)(lastPlaceMatch)(getNextRound(round))(firstRoundGames)()(
+  return createGamesRound([...(returnMatches ?? [])])(lastPlaceMatch)(getNextRound(round))(firstRoundGames)()(
     shouldHaveLoserBranch(round)(lastPlaceMatch)(),
   );
 };
@@ -54,13 +53,13 @@ function* getHasReturnMatch(returnMatches: boolean[]): TReturnMatchesGen {
 export type TReturnMatchesGen = Generator<true | undefined, undefined, unknown>;
 
 export const createGamesRound =
-  (genReturnMatches: TReturnMatchesGen) =>
+  (returnMatches: TReturnMatches) =>
   (lastPlaceMatch: number = 1) =>
   (roundName: TRoundName) =>
   (games: TGame[]) =>
   (branch?: string) =>
   (haveLoserBranch?: boolean): TGame[] => {
-    const hasReturnMatch = genReturnMatches.next().value;
+    const hasReturnMatch = returnMatches[0] || undefined;
     const createBranchGame = createGame(hasReturnMatch)(roundName);
 
     const winnerGames = getEvery2Elements(games)((game1, game2, i) =>
@@ -78,7 +77,7 @@ export const createGamesRound =
     if (roundName === E_PLAY_OFFS_ROUND.FINAL) {
       return [...games, ...loserGames, ...winnerGames];
     }
-    const createBranchRound = createGamesRound(genReturnMatches)(lastPlaceMatch)(getNextRound(roundName));
+    const createBranchRound = createGamesRound([...returnMatches.slice(1)])(lastPlaceMatch)(getNextRound(roundName));
 
     const nextWinnerGames = createBranchRound(winnerGames)(getNextRoundBranchChar(branch))(
       shouldHaveLoserBranch(roundName)(lastPlaceMatch)(branch),
