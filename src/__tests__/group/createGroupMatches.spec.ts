@@ -15,7 +15,7 @@ test('Init Match', () => {
       home: teams[0].id,
       away: teams[1].id,
       round: 1,
-      number: 1,
+      matchNumber: 1,
     }),
   ).toEqual(expected);
 });
