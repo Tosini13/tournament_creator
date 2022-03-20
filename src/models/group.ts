@@ -10,7 +10,6 @@ export type TGroup<T = {}> = {
   promotionGroups?: TPromotionGroup[];
 } & T;
 
-
 export type TCreateGroup = Omit<TGroup, 'id'>;
 
 type TPromotionGame = {
@@ -41,4 +40,4 @@ export type TTableRow = {
   goalsLost: number;
   promotedToGame?: TPromotionGame;
   promotedToGroup?: TPromotionGroup;
-}
+};
