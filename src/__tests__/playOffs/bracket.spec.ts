@@ -5,9 +5,9 @@ import { E_PLAY_OFFS_ROUND } from '../../playOffs/types';
 import { teams } from '../../utils/mockData/teams';
 
 describe('round name', () => {
-  it('count teams places', () => {
-    const teamsQty = [teams[0], teams[1], undefined, teams[2], teams[3], undefined];
-    expect(teamsQty).toEqual([teams[0], teams[1], 'NO_TEAM', teams[2], teams[3], 'NO_TEAM', 'NO_TEAM', 'NO_TEAM']);
+  it('calc teams places', () => {
+    const initialTeams = createInitTeamsArray([teams[0], teams[1], undefined, teams[2], teams[3], undefined]);
+    expect(initialTeams).toEqual([teams[0], teams[1], 'NO_TEAM', teams[2], teams[3], 'NO_TEAM', 'NO_TEAM', 'NO_TEAM']);
   });
 
   it('basic bracket QF - SF - F without return matches!', () => {

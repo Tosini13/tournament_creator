@@ -7,7 +7,7 @@ import { E_PLAY_OFFS_ROUND, TReturnMatches, TRoundName } from './types';
 
 export type TCreateBracketProps = {
   round: TRoundName;
-  teams: TTeam[];
+  teams: (TTeam | undefined)[];
   returnMatches?: TReturnMatches;
   lastPlaceMatch?: number;
 };
