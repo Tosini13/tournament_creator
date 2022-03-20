@@ -1,6 +1,7 @@
 import { Id } from '../models/db';
-import { initGroupMatch, TGame, TPlaceholderGameTeam } from '..';
+import { TGame, TPlaceholderGameTeam } from '..';
 import { TPromotionType, TRoundName } from './types';
+import { initGroupMatch } from '../group/createGroup';
 
 export const createGame =  // TODO: Time
   (
