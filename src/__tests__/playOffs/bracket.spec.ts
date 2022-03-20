@@ -6,14 +6,14 @@ import { teams } from '../../utils/mockData/teams';
 
 describe('round name', () => {
   it('count teams places', () => {
-    const teamsQty = createInitTeamsArray([teams[0], teams[1], undefined, teams[2], teams[3], undefined]);
+    const teamsQty = [teams[0], teams[1], undefined, teams[2], teams[3], undefined];
     expect(teamsQty).toEqual([teams[0], teams[1], 'NO_TEAM', teams[2], teams[3], 'NO_TEAM', 'NO_TEAM', 'NO_TEAM']);
   });
 
   it('basic bracket QF - SF - F without return matches!', () => {
     const bracket = createBracket({
       round: E_PLAY_OFFS_ROUND.QUARTER_FINAL,
-      teams: createInitTeamsArray([teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]]),
+      teams: [teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]],
     });
 
     const QF1 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[0].id, teams[1].id)(1)();
@@ -30,7 +30,7 @@ describe('round name', () => {
   it('basic bracket QF - SF - F without return matches and with undefined matches in QF3 and QF4', () => {
     const bracket = createBracket({
       round: E_PLAY_OFFS_ROUND.QUARTER_FINAL,
-      teams: createInitTeamsArray([teams[0], teams[1], teams[2], teams[3], undefined, teams[4], teams[6]]),
+      teams: [teams[0], teams[1], teams[2], teams[3], undefined, teams[4], teams[6]],
     });
 
     const QF1 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[0].id, teams[1].id)(1)();
@@ -47,7 +47,7 @@ describe('round name', () => {
   it('basic bracket QF - SF - F without return matches and with undefined matches in QF3 and QF4', () => {
     const bracket = createBracket({
       round: E_PLAY_OFFS_ROUND.QUARTER_FINAL,
-      teams: createInitTeamsArray([teams[0], teams[1], teams[2], teams[3], undefined, teams[4], teams[6], teams[7]]),
+      teams: [teams[0], teams[1], teams[2], teams[3], undefined, teams[4], teams[6], teams[7]],
     });
 
     const QF1 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[0].id, teams[1].id)(1)();
@@ -64,7 +64,7 @@ describe('round name', () => {
   it('basic bracket QF - SF - F with return matches only in QF', () => {
     const bracket = createBracket({
       round: E_PLAY_OFFS_ROUND.QUARTER_FINAL,
-      teams: createInitTeamsArray([teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]]),
+      teams: [teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]],
       returnMatches: [true, false, false],
     });
 
@@ -81,7 +81,7 @@ describe('round name', () => {
   it('basic bracket QF - SF - F with return matches only in SF', () => {
     const bracket = createBracket({
       round: E_PLAY_OFFS_ROUND.QUARTER_FINAL,
-      teams: createInitTeamsArray([teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]]),
+      teams: [teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]],
       returnMatches: [false, true, false],
     });
 
@@ -99,7 +99,7 @@ describe('round name', () => {
   it('basic bracket QF - SF - F with return matches only in F', () => {
     const bracket = createBracket({
       round: E_PLAY_OFFS_ROUND.QUARTER_FINAL,
-      teams: createInitTeamsArray([teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]]),
+      teams: [teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]],
       returnMatches: [false, false, true],
     });
 
@@ -117,7 +117,7 @@ describe('round name', () => {
   it('basic bracket QF - SF - F with return matches and with undefined matches in QF3 and QF4', () => {
     const bracket = createBracket({
       round: E_PLAY_OFFS_ROUND.QUARTER_FINAL,
-      teams: createInitTeamsArray([teams[0], teams[1], teams[2], teams[3], undefined, teams[4], teams[6]]),
+      teams: [teams[0], teams[1], teams[2], teams[3], undefined, teams[4], teams[6]],
       returnMatches: [true, true, true],
     });
 
@@ -135,7 +135,7 @@ describe('round name', () => {
   it('basic bracket QF - SF - F without return matches, but with lastPlace = 1', () => {
     const bracket = createBracket({
       round: E_PLAY_OFFS_ROUND.QUARTER_FINAL,
-      teams: createInitTeamsArray([teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]]),
+      teams: [teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]],
     });
 
     const QF1 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[0].id, teams[1].id)(1)();
@@ -151,7 +151,7 @@ describe('round name', () => {
   it('basic bracket QF - SF - F without return matches, but with lastPlace = 3', () => {
     const bracket = createBracket({
       round: E_PLAY_OFFS_ROUND.QUARTER_FINAL,
-      teams: createInitTeamsArray([teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]]),
+      teams: [teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]],
       lastPlaceMatch: 3,
     });
 
@@ -170,7 +170,7 @@ describe('round name', () => {
   it('basic bracket QF - SF - F without return matches, but with lastPlace = 5', () => {
     const bracket = createBracket({
       round: E_PLAY_OFFS_ROUND.QUARTER_FINAL,
-      teams: createInitTeamsArray([teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]]),
+      teams: [teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]],
       lastPlaceMatch: 5,
     });
 
@@ -191,7 +191,7 @@ describe('round name', () => {
   it('basic bracket QF - SF - F without return matches, but with lastPlace = 7', () => {
     const bracket = createBracket({
       round: E_PLAY_OFFS_ROUND.QUARTER_FINAL,
-      teams: createInitTeamsArray([teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]]),
+      teams: [teams[0], teams[1], teams[2], teams[3], teams[4], teams[5], teams[6], teams[7]],
       lastPlaceMatch: 7,
     });
 

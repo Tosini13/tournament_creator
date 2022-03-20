@@ -90,7 +90,3 @@ describe('shouldHaveLoserBranch', () => {
     expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.SEMI_FINAL)(7)('B')).toEqual(true);
   });
 });
-
-// createGame\((.*?)\)\((.*?)\)\((.*?)\)\((.*?)\)\((.*?)\)
-// createGame($5)($1)($3)($4)($2)()
-// const F = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();

@@ -2,17 +2,18 @@ import { TGame, TTeam } from '..';
 import { getEvery2Elements } from '../utils/array/array';
 import { getNextChar, getNextRoundBranchChar } from '../utils/generators';
 import { createGame, createGameWithTeams } from './games';
-import { getNextRound, getRoundMatchesQty, shouldHaveLoserBranch } from './round';
+import { getNextRound, shouldHaveLoserBranch } from './round';
 import { E_PLAY_OFFS_ROUND, TReturnMatches, TRoundName } from './types';
 
 export type TCreateBracketProps = {
   round: TRoundName;
-  teams: (TTeam | 'NO_TEAM')[];
+  teams: TTeam[];
   returnMatches?: TReturnMatches;
   lastPlaceMatch?: number;
 };
 
-export const createBracket = ({ round, teams, returnMatches, lastPlaceMatch }: TCreateBracketProps) => {
+export const createBracket = ({ round, teams: teams$, returnMatches, lastPlaceMatch }: TCreateBracketProps) => {
+  const teams = createInitTeamsArray(teams$);
   const hasReturnMatch = returnMatches?.shift() || undefined;
   const firstRoundGames = Array.from(Array(teams.length).keys())
     .filter((n) => n % 2)
@@ -42,13 +43,6 @@ const getBracketTeamsQty = (qty: number): number => {
 };
 
 const numArray = (n: number): number[] => Array.from(Array(n).keys());
-
-function* getHasReturnMatch(returnMatches: boolean[]): TReturnMatchesGen {
-  while (returnMatches.length > 0) {
-    yield returnMatches.shift() || undefined;
-  }
-  return undefined;
-}
 
 export type TReturnMatchesGen = Generator<true | undefined, undefined, unknown>;
 

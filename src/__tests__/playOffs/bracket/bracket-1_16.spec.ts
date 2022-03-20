@@ -58,7 +58,7 @@ const F = createGame(true)(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();
 it('basic bracket 1/16 - QF - SF - F without return matches, but with lastPlace = 15', () => {
   const bracket = createBracket({
     round: '1/16',
-    teams: createInitTeamsArray([
+    teams: [
       teams[0],
       teams[1],
       teams[2],
@@ -75,7 +75,7 @@ it('basic bracket 1/16 - QF - SF - F without return matches, but with lastPlace 
       teams[13],
       teams[14],
       teams[15],
-    ]),
+    ],
     lastPlaceMatch: 15,
     returnMatches: [true, true, true, true],
   });
