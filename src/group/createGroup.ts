@@ -3,7 +3,7 @@ import { Id } from '../models/db';
 import { TCreateGroup, TGroup } from '../models/group';
 import { TMatch } from '../models/match';
 
-type TCreateGroupProps = {
+export type TCreateGroupProps = {
   name: string;
   teams: Id[];
   rematch?: boolean;
