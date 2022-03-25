@@ -1,4 +1,10 @@
-import { createRounds, getRoundMatchesQty, getRoundName, shouldHaveLoserBranch } from '../../playOffs/round';
+import {
+  createRounds,
+  getAllRounds,
+  getRoundMatchesQty,
+  getRoundName,
+  shouldHaveLoserBranch,
+} from '../../playOffs/round';
 import { E_PLAY_OFFS_ROUND } from '../../playOffs/types';
 import { getNextChar, getNextRoundBranchChar } from '../../utils/generators';
 
@@ -88,5 +94,24 @@ describe('shouldHaveLoserBranch', () => {
     expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.SEMI_FINAL)(3)()).toEqual(true);
     expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.SEMI_FINAL)(5)('B')).toEqual(false);
     expect(shouldHaveLoserBranch(E_PLAY_OFFS_ROUND.SEMI_FINAL)(7)('B')).toEqual(true);
+  });
+});
+
+describe('getAllRounds', () => {
+  it('getAllRounds with enum', () => {
+    expect(getAllRounds(E_PLAY_OFFS_ROUND.QUARTER_FINAL)).toEqual([
+      E_PLAY_OFFS_ROUND.FINAL,
+      E_PLAY_OFFS_ROUND.SEMI_FINAL,
+      E_PLAY_OFFS_ROUND.QUARTER_FINAL,
+    ]);
+  });
+  it('getAllRounds with over QF', () => {
+    expect(getAllRounds('1/32')).toEqual([
+      E_PLAY_OFFS_ROUND.FINAL,
+      E_PLAY_OFFS_ROUND.SEMI_FINAL,
+      E_PLAY_OFFS_ROUND.QUARTER_FINAL,
+      '1/16',
+      '1/32',
+    ]);
   });
 });
