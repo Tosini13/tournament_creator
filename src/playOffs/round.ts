@@ -31,6 +31,18 @@ export const getRoundMatchesQty = (round: TRoundName): number => {
   }
 };
 
+export const getAllRounds = (round: TRoundName): TRoundName[] => {
+  const matchesQty = getRoundMatchesQty(round);
+  let matchesI = 1;
+
+  let rounds: TRoundName[] = [];
+  while (matchesI <= matchesQty) {
+    rounds = [...rounds, getRoundName(matchesI * 2)];
+    matchesI *= 2;
+  }
+  return rounds;
+};
+
 export const getNextRound = (round: TRoundName): TRoundName => getRoundName(getRoundMatchesQty(round));
 
 export const shouldHaveLoserBranch =
