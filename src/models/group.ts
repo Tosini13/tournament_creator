@@ -12,17 +12,17 @@ export type TGroup<T = {}> = {
 
 export type TCreateGroup = Omit<TGroup, 'id'>;
 
-type TPromotionGame = {
+export type TPromotionGame = {
   gameId: string;
   site: ESite;
 };
 
-type TPromotionGroup = {
+export type TPromotionGroup = {
   groupId: string;
   place: number;
 };
 
-enum ESite {
+export enum ESite {
   'HOME',
   'AWAY',
 }

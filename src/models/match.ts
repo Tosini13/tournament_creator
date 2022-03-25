@@ -30,7 +30,7 @@ export type TPlaceholderGameTeam = {
   promotionType: TPromotionType;
 };
 
-type TPlaceholderGroupTeam = {
+export type TPlaceholderGroupTeam = {
   groupId: Id;
   promotionType: TPromotionType;
 };
