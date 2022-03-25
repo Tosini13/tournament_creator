@@ -1,6 +1,6 @@
 {
   "name": "tournament_creator",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Tournament Creator for advanced structures",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
