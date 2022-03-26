@@ -25,8 +25,8 @@ export const createGame =  // TODO: Time
       roundName,
       branch,
       matchNumber: gameNumber,
-      home: getOnlyTeam(homeGame?.match.homeTeam, homeGame?.match.awayTeam),
-      away: getOnlyTeam(awayGame?.match.homeTeam, awayGame?.match.awayTeam),
+      home: getOnlyTeam(homeGame?.match.homeTeam, homeGame?.match.awayTeam, homeGame?.branch === branch),
+      away: getOnlyTeam(awayGame?.match.homeTeam, awayGame?.match.awayTeam, awayGame?.branch === branch),
       placeholderGame: {
         home: homeGame && setPlaceHolderGame(homeGame.gameNumber, homeGame.round, promotionType, homeGame.branch),
         away: awayGame && setPlaceHolderGame(awayGame.gameNumber, awayGame.round, promotionType, awayGame.branch),
@@ -39,8 +39,8 @@ export const createGame =  // TODO: Time
         roundName,
         branch,
         matchNumber: gameNumber,
-        home: getOnlyTeam(awayGame?.match.homeTeam, awayGame?.match.awayTeam),
-        away: getOnlyTeam(homeGame?.match.homeTeam, homeGame?.match.awayTeam),
+        home: getOnlyTeam(awayGame?.match.homeTeam, awayGame?.match.awayTeam, homeGame?.branch === branch),
+        away: getOnlyTeam(homeGame?.match.homeTeam, homeGame?.match.awayTeam, awayGame?.branch === branch),
         placeholderGame: {
           home: awayGame && setPlaceHolderGame(awayGame.gameNumber, awayGame.round, promotionType, branch),
           away: homeGame && setPlaceHolderGame(homeGame.gameNumber, homeGame.round, promotionType, branch),
@@ -56,8 +56,12 @@ export const createGame =  // TODO: Time
     };
   };
 
-const getOnlyTeam = (teamA?: Id, teamB?: Id): Id | undefined => {
+const getOnlyTeam = (teamA?: Id, teamB?: Id, isSameBranch?: boolean): Id | undefined => {
   if (teamA === 'NO_TEAM' && teamB === 'NO_TEAM') {
+    return 'NO_TEAM';
+  }
+
+  if ((teamA === 'NO_TEAM' || teamB === 'NO_TEAM') && !isSameBranch) {
     return 'NO_TEAM';
   }
 

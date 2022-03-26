@@ -210,4 +210,32 @@ describe('round name', () => {
 
     expect(bracket).toEqual([QF1, QF2, QF3, QF4, SFB1, SFB2, FD, FC, SF1, SF2, FB, F]);
   });
+
+  it('basic bracket QF - SF - F without return matches, but with lastPlace = 7 and 3 last undefined teams', () => {
+    const bracket = createBracket({
+      round: E_PLAY_OFFS_ROUND.QUARTER_FINAL,
+      teams: [teams[0], teams[1], teams[2], teams[3], teams[4], undefined, undefined, undefined],
+      lastPlaceMatch: 7,
+    });
+
+    const QF1 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[0].id, teams[1].id)(1)();
+    const QF2 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[2].id, teams[3].id)(2)();
+    const QF3 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)(teams[4].id, 'NO_TEAM')(3)();
+    const QF4 = createGameWithTeams(E_PLAY_OFFS_ROUND.QUARTER_FINAL)('NO_TEAM', 'NO_TEAM')(4)();
+    const SFB1 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('looser')('B');
+    const SFB2 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('looser')('B');
+    const SF1 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF1, QF2)(1)('winner')();
+    const SF2 = createGame()(E_PLAY_OFFS_ROUND.SEMI_FINAL)(QF3, QF4)(2)('winner')();
+    const F = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('winner')();
+    const FB = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SF1, SF2)(1)('looser')('B');
+    const FC = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SFB1, SFB2)(1)('winner')('C');
+    const FD = createGame()(E_PLAY_OFFS_ROUND.FINAL)(SFB1, SFB2)(1)('looser')('D');
+    SFB2.match.homeTeam = 'NO_TEAM';
+    SFB2.match.awayTeam = 'NO_TEAM';
+    FD.match.awayTeam = 'NO_TEAM';
+    FC.match.awayTeam = 'NO_TEAM';
+    FB.match.awayTeam = 'NO_TEAM';
+
+    expect(bracket).toEqual([QF1, QF2, QF3, QF4, SFB1, SFB2, FD, FC, SF1, SF2, FB, F]);
+  });
 });
